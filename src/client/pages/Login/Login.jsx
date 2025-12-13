@@ -1,4 +1,4 @@
-// src/pages/Login/Login.jsx
+
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUserAsync } from '../../redux/slices/userSlice';
@@ -7,8 +7,6 @@ import { useNavigate } from 'react-router-dom';
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
-  // Lấy state từ Redux để hiển thị loading hoặc lỗi
   const { isLoading, error } = useSelector((state) => state.user);
 
   const [loginData, setLoginData] = useState({
@@ -26,17 +24,13 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    // Dispatch Async Thunk
     dispatch(loginUserAsync(loginData))
-      .unwrap() // Hàm giúp tách kết quả promise (thành công hay thất bại)
+      .unwrap()
       .then((result) => {
         alert(`Xin chào, ${result.hoTen}!`);
-        navigate('/'); // Chuyển về trang chủ sau khi đăng nhập xong
+        navigate('/'); 
       })
       .catch((errPayload) => {
-        // Lỗi đã được xử lý trong slice, ở đây chỉ cần thông báo nếu muốn
-        // (errPayload chính là message lỗi từ server)
         console.error("Lỗi đăng nhập:", errPayload);
       });
   };
@@ -45,7 +39,6 @@ const Login = () => {
     <div className="container mx-auto p-4 max-w-md">
       <h2 className="text-2xl font-bold mb-4">Đăng Nhập</h2>
       
-      {/* Hiển thị lỗi nếu có từ Redux */}
       {error && <div className="bg-red-100 text-red-700 p-2 mb-4 rounded">{error}</div>}
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -70,7 +63,7 @@ const Login = () => {
         <button 
           type="submit" 
           className="bg-green-500 text-white p-2 rounded w-full"
-          disabled={isLoading} // Disable nút khi đang loading
+          disabled={isLoading} 
         >
           {isLoading ? 'Đang xử lý...' : 'Đăng Nhập'}
         </button>

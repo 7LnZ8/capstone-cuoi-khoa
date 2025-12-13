@@ -5,8 +5,6 @@ import { useNavigate } from 'react-router-dom';
 const Profile = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  
-  // State lưu thông tin user lấy từ API
   const [profileData, setProfileData] = useState({
     taiKhoan: '',
     matKhau: '',
@@ -15,12 +13,11 @@ const Profile = () => {
     soDT: '',
     maLoaiNguoiDung: '',
     maNhom: 'GP01',
-    chiTietKhoaHocGhiDanh: [] // Mảng chứa danh sách khóa học
+    chiTietKhoaHocGhiDanh: [] 
   });
 
   // 1. Gọi API lấy thông tin khi trang vừa load
   useEffect(() => {
-    // Kiểm tra nếu chưa đăng nhập thì đá về trang login
     if (!localStorage.getItem('accessToken')) {
         alert('Vui lòng đăng nhập để xem thông tin!');
         navigate('/login');
@@ -30,7 +27,6 @@ const Profile = () => {
     const fetchProfile = async () => {
       try {
         const result = await userService.getUserProfileApi();
-        // Cập nhật state với dữ liệu từ server
         setProfileData(result.data);
         setLoading(false);
       } catch (error) {
@@ -71,8 +67,6 @@ const Profile = () => {
       <h1 className="text-3xl font-bold mb-5 text-center">Hồ Sơ Cá Nhân</h1>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        
-        {/* --- CỘT 1: FORM THÔNG TIN --- */}
         <div className="md:col-span-1 bg-white p-5 rounded-lg shadow-lg">
           <h3 className="text-xl font-semibold mb-4 text-blue-600">Thông tin tài khoản</h3>
           <form onSubmit={handleUpdate} className="space-y-4">
@@ -116,14 +110,12 @@ const Profile = () => {
                 className="w-full border p-2 rounded"
               />
             </div>
-            {/* Mật khẩu thường không hiển thị trực tiếp hoặc cần cơ chế đổi riêng, 
-                nhưng API Update yêu cầu gửi kèm mật khẩu thì cần input này */}
             <div>
                <label className="block text-sm font-medium">Mật khẩu xác nhận</label>
                <input 
                  type="password" 
                  name="matKhau"
-                 value={profileData.matKhau || ''} // Handle null
+                 value={profileData.matKhau || ''}
                  onChange={handleChange}
                  className="w-full border p-2 rounded"
                  placeholder="Nhập mật khẩu để cập nhật"
@@ -135,8 +127,6 @@ const Profile = () => {
             </button>
           </form>
         </div>
-
-        {/* --- CỘT 2: DANH SÁCH KHÓA HỌC (Chiếm 2 phần) --- */}
         <div className="md:col-span-2">
           <h3 className="text-xl font-semibold mb-4 text-green-600">Khóa học của tôi</h3>
           

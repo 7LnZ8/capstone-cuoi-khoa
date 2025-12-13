@@ -6,8 +6,6 @@ const UserManagement = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchKeyword, setSearchKeyword] = useState('');
-  
-  // State cho Modal (Form thêm/sửa)
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userTypes, setUserTypes] = useState([]);
   const [formData, setFormData] = useState({
@@ -19,11 +17,10 @@ const UserManagement = () => {
   useEffect(() => {
     fetchUserList(currentPage, searchKeyword);
     fetchUserTypes();
-  }, [currentPage, searchKeyword]); // Chạy lại khi trang hoặc từ khóa thay đổi
-
+  }, [currentPage, searchKeyword]); 
   const fetchUserList = async (page, keyword) => {
     try {
-      const result = await userService.getUserListApi(page, 10, keyword); // pageSize = 10
+      const result = await userService.getUserListApi(page, 10, keyword); 
       setUserList(result.data.items);
       setTotalPages(result.data.totalPages);
     } catch (err) {
@@ -40,9 +37,8 @@ const UserManagement = () => {
 
   // 2. Xử lý Tìm kiếm (Debounce đơn giản)
   const handleSearch = (e) => {
-      // Logic thực tế nên dùng lodash.debounce, ở đây set state trực tiếp để demo nhanh
       setSearchKeyword(e.target.value);
-      setCurrentPage(1); // Reset về trang 1 khi tìm kiếm
+      setCurrentPage(1);
   };
 
   // 3. Xử lý Xóa
@@ -51,22 +47,17 @@ const UserManagement = () => {
       try {
         await userService.deleteUserApi(taiKhoan);
         alert('Xóa thành công');
-        fetchUserList(currentPage, searchKeyword); // Refresh lại list
+        fetchUserList(currentPage, searchKeyword);
       } catch (err) {
         alert(err.response?.data || 'Không thể xóa người dùng này!');
       }
     }
   };
-
-  // 4. Các hàm xử lý Form (Thêm/Sửa)
   const handleOpenModal = (user = null) => {
       if (user) {
-          // Chế độ Edit
           setIsEditMode(true);
-          // API trả về mật khẩu null nên ta không điền mật khẩu cũ vào
           setFormData({ ...user, matKhau: '' }); 
       } else {
-          // Chế độ Add mới
           setIsEditMode(false);
           setFormData({ taiKhoan: '', matKhau: '', hoTen: '', email: '', soDT: '', maLoaiNguoiDung: 'HV' });
       }

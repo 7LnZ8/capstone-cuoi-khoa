@@ -1,8 +1,8 @@
-// src/utils/settings/config.js
 
-export const DOMAIN = 'https://elearningnew.cybersoft.edu.vn'; // Domain server
+
+export const DOMAIN = 'https://elearningnew.cybersoft.edu.vn'; 
 export const TOKEN_CYBERSOFT = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA4NiIsIkhldEhhblN0cmluZyI6IjMwLzA0LzIwMjYiLCJIZXRIYW5UaW1lIjoiMTc3NzUwNzIwMDAwMCIsIm5iZiI6MTc0OTkyMDQwMCwiZXhwIjoxNzc3NjU0ODAwfQ.GVFThE6gKR0iLystNcnByNEvenUzv2DP5TtmJhk2mvI'; // Token được cung cấp
-export const GROUP_ID = 'GP01'; // Mã nhóm mặc định theo API 
+export const GROUP_ID = 'GP01';  
 
-export const USER_LOGIN = 'userLogin'; // Key để lưu xuống LocalStorage
-export const ACCESSTOKEN = 'accessToken'; // Key để lưu token
+export const USER_LOGIN = 'userLogin'; 
+export const ACCESSTOKEN = 'accessToken'; 

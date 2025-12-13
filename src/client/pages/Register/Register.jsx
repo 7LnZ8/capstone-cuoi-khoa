@@ -1,4 +1,3 @@
-// src/pages/Register/Register.jsx
 import React, { useState } from 'react';
 import { userService } from '../../services/userService';
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +14,7 @@ const Register = () => {
     soDT: '',
   });
 
-  const [errors, setErrors] = useState({}); // Lưu lỗi validation
+  const [errors, setErrors] = useState({}); 
 
   // 2. Hàm xử lý thay đổi input (Clean Code: Dùng chung cho tất cả input)
   const handleChange = (e) => {
@@ -24,7 +23,6 @@ const Register = () => {
       ...formData,
       [name]: value,
     });
-    // Xóa lỗi khi user bắt đầu gõ lại
     if (errors[name]) {
         setErrors({...errors, [name]: ''});
     }
@@ -35,12 +33,12 @@ const Register = () => {
       let newErrors = {};
       if (!formData.taiKhoan) newErrors.taiKhoan = "Tài khoản không được để trống";
       if (!formData.matKhau) newErrors.matKhau = "Mật khẩu không được để trống";
-      // Regex email đơn giản
+
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!formData.email || !emailRegex.test(formData.email)) newErrors.email = "Email không hợp lệ";
       
       setErrors(newErrors);
-      return Object.keys(newErrors).length === 0; // Trả về true nếu không có lỗi
+      return Object.keys(newErrors).length === 0; 
   };
 
   // 4. Xử lý Submit
@@ -49,10 +47,10 @@ const Register = () => {
     if (!validateForm()) return;
 
     try {
-      // Gọi API từ Service
+
       await userService.registerApi(formData);
       alert('Đăng ký thành công!');
-      navigate('/login'); // Chuyển hướng sang trang đăng nhập
+      navigate('/login'); 
     } catch (err) {
       console.error(err);
       alert(err.response?.data || 'Đăng ký thất bại');
