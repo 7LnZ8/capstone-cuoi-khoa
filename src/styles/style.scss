@@ -1,0 +1,32 @@
+// style.scss
+
+// abstracts (variables, mixins)
+@import "./abstracts/variables";
+@import "./abstracts/mixins";
+
+// base
+@import "./base/reset";
+@import "./base/global";
+@import "./base/typography";
+
+// ELEMENT UI
+@import "./components/ui/button";
+@import "./components/ui/input";
+
+// SYSTEM UI
+@import "./components/toast";
+@import "./components/modal";
+@import "./components/loader";
+
+//layouts component
+@import "../layouts/HomeLayout/HomeLayout.scss";
+@import "../layouts/AdminLayout/AdminLayout.scss";
+
+//pages
+@import "../pages/home/Home.scss";
+@import "../pages/course-detail/CourseDetail.scss";
+
+//6) layout global
+@import "./layouts/home";
+//LAYOUT ADMIN
+@import "./layouts/admin";
