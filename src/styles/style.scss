@@ -30,3 +30,6 @@
 @import "./layouts/home";
 //LAYOUT ADMIN
 @import "./layouts/admin";
+
+//7) pages riêng lẻ
+@import "../pages/admin/courses/CourseForm.scss";

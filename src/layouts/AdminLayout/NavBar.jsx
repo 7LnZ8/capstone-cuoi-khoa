@@ -24,31 +24,32 @@ export default function Navbar() {
         <div className="collapse navbar-collapse" id="mainNavbar">
           <div className="d-flex align-items-center gap-3">
             <NavLink
-              to="/cources"
+              to="/admin/courses"
+              end
               className={({ isActive }) =>
                 `nav-link ${isActive ? "fw-bold text-primary" : ""}`
               }
             >
-              Cources
+              Quản Lý Khóa Học
             </NavLink>
 
             <NavLink
-              to="/"
+              to="/admin/courses/new"
               className={({ isActive }) =>
                 `nav-link ${isActive ? "fw-bold text-primary" : ""}`
               }
             >
-              Home
+              Thêm Khóa Học
             </NavLink>
-
+            {/* 
             <NavLink
-              to="/teach"
+              to="/admin/courses/:id/new"
               className={({ isActive }) =>
                 `nav-link ${isActive ? "fw-bold text-primary" : ""}`
               }
             >
               Teach
-            </NavLink>
+            </NavLink> */}
 
             {/* Form Search */}
             <form className="d-flex">

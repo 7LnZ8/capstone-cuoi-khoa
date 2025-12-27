@@ -49,7 +49,7 @@ export default function AppRouter() {
         {
           element: <AdminRoute />, //Vào file này xem ghi chú
           children: [
-            { index: true, element: <CourseManager /> },
+            // { index: true, element: <CourseManager /> },
 
             // Courses
             { path: "courses", element: <CourseManager /> },

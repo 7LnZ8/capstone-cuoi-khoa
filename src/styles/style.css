@@ -2,3 +2,14 @@ h1 {
   font-size: 60px;
   color: blue;
 }
+
+.form-course {
+  padding: 32px;
+  margin: 32px auto;
+  width: 50%;
+}
+
+.course-table {
+  margin: 32px auto;
+  width: 80%;
+}
