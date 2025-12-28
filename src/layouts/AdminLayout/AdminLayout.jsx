@@ -7,8 +7,14 @@ export default function AdminLayout() {
   return (
     <div className="admin-layout">
       <Navbar />
-      <main style={{ minHeight: "100vh" }}>
-        <Outlet />
+      <main className="content-admin" style={{ minHeight: "100vh" }}>
+        <div className="side-bar">
+          <h1>side bar</h1>
+        </div>
+
+        <div className="children-admin">
+          <Outlet />
+        </div>
       </main>
       <Footer />
     </div>

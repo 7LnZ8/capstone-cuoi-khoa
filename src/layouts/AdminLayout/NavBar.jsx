@@ -1,72 +1,57 @@
 // Navbar.jsx
 import { NavLink } from "react-router-dom";
+import Logo from "./Logo.jsx";
 
 export default function Navbar() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-      <div className="container-fluid">
-        {/* Logo */}
-        <NavLink className="navbar-brand" to="/">
-          <h2>CYBERMY</h2>
-        </NavLink>
+    <nav className="navbar navbar-expand-lg shadow-sm">
+      <div className="container-fluid nav-wrap">
+        <Logo />
 
-        {/* Responsive Button */}
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#mainNavbar"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-
-        {/* Menu */}
-        <div className="collapse navbar-collapse" id="mainNavbar">
-          <div className="d-flex align-items-center gap-3">
+        <div className="collapse navbar-collapse nav-left" id="mainNavbar">
+          <div className="d-flex align-items-center">
             <NavLink
-              to="/admin/courses"
+              to="/admin"
               end
               className={({ isActive }) =>
-                `nav-link ${isActive ? "fw-bold text-primary" : ""}`
+                `nav-link link-route ${isActive ? "fw-bold text-primary" : ""}`
               }
             >
-              Quản Lý Khóa Học
+              QUẢN LÝ KHÓA HỌC
             </NavLink>
 
             <NavLink
-              to="/admin/courses/new"
+              to="/admin/users"
               className={({ isActive }) =>
-                `nav-link ${isActive ? "fw-bold text-primary" : ""}`
+                `nav-link link-route ${isActive ? "fw-bold text-primary" : ""}`
               }
             >
-              Thêm Khóa Học
+              QUAN LÝ NGƯỜI DÙNG
             </NavLink>
-            {/* 
             <NavLink
-              to="/admin/courses/:id/new"
+              to="/admin/enroll"
               className={({ isActive }) =>
-                `nav-link ${isActive ? "fw-bold text-primary" : ""}`
+                `nav-link link-route ${isActive ? "fw-bold text-primary" : ""}`
               }
             >
-              Teach
-            </NavLink> */}
+              QUAN LÝ GHI DANH
+            </NavLink>
 
-            {/* Form Search */}
-            <form className="d-flex">
+            <form className="d-flex form-look">
               <input
-                className="form-control"
-                placeholder="Search for anything"
+                className="form-control input-look"
+                placeholder="Tìm khóa học..."
               />
+              <button className="btn btn-look">Tìm</button>
             </form>
           </div>
 
-          {/* Right side */}
-          <div className="ms-auto d-flex align-items-center gap-2">
-            <NavLink to="/login" className="btn btn-outline-primary">
-              Login
+          <div className="ms-auto d-flex nav-right">
+            <NavLink to="/login" className="btn btn-auth">
+              Đăng nhập
             </NavLink>
-            <NavLink to="/register" className="btn btn-primary">
-              Sign Up
+            <NavLink to="/register" className="btn btn-auth">
+              Đăng xuất
             </NavLink>
           </div>
         </div>
@@ -74,3 +59,12 @@ export default function Navbar() {
     </nav>
   );
 }
+
+// <button
+//         className="navbar-toggler"
+//         type="button"
+//         data-bs-toggle="collapse"
+//         data-bs-target="#mainNavbar"
+//       >
+//         <span className="navbar-toggler-icon"></span>
+//       </button>

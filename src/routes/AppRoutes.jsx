@@ -17,11 +17,10 @@ import Register from "../pages/auth/Register";
 import UserManager from "../pages/admin/users/UserManager";
 import CourseManager from "../pages/admin/courses/CourseManager";
 import CourseForm from "../pages/admin/courses/CourseForm";
-import CategoryManager from "../pages/admin/categories/CategoryManager";
-import CategoryForm from "../pages/admin/categories/CategoryForm";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import AdminRoute from "./AdminRoute.jsx";
-import CreateAccount from "../pages/admin/courses/CreateAccount.jsx";
+import CreateAccount from "../pages/admin/users/CreateAccount.jsx";
+import EnrollManager from "../pages/admin/enroll/EnrollManager.jsx";
 
 export default function AppRouter() {
   const routes = useRoutes([
@@ -50,23 +49,33 @@ export default function AppRouter() {
         {
           element: <AdminRoute />, //Vào file này xem ghi chú
           children: [
-            // { index: true, element: <CourseManager /> },
+            { index: true, element: <CourseManager /> },
 
-            //Account
-            { path: "account/create", element: <CreateAccount /> },
+            {
+              //user manage
+              path: "users",
+              children: [
+                { index: true, element: <UserManager /> },
+                { path: "user/create", element: <CreateAccount /> },
+                { path: "user/:id/edit", element: <CreateAccount /> },
+              ],
+            },
 
             // Courses
-            { path: "courses", element: <CourseManager /> },
-            { path: "courses/new", element: <CourseForm /> },
-            { path: "courses/:id/edit", element: <CourseForm /> },
+            {
+              path: "courses",
+              children: [
+                { index: true, element: <CourseManager /> },
 
-            // Users
-            { path: "users", element: <UserManager /> },
+                { path: "courses/create", element: <CourseForm /> },
+                { path: "courses/:id/edit", element: <CourseForm /> },
+              ],
+            },
 
-            // Categories
-            { path: "categories", element: <CategoryManager /> },
-            { path: "categories/new", element: <CategoryForm /> },
-            { path: "categories/:id/edit", element: <CategoryForm /> },
+            {
+              path: "enroll",
+              children: [{ index: true, element: <EnrollManager /> }],
+            },
           ],
         },
       ],

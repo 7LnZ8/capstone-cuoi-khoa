@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { useMemo } from "react";
 import { Table, Button, Image, Space, Tooltip } from "antd";
 import {
@@ -7,6 +6,7 @@ import {
   UploadOutlined,
 } from "@ant-design/icons";
 import { useCourses } from "../../../queries/course.queries.js";
+import { Spinner } from "react-bootstrap";
 
 export default function CourseManager() {
   const { data, isPending, isError, error } = useCourses();
@@ -110,11 +110,11 @@ export default function CourseManager() {
       ),
     },
   ];
-  if (isPending) return <Spinner>Đang tải khóa học...</Spinner>;
+  if (isPending) return <Spinner>Oo</Spinner>;
   if (isError) return <p>Lỗi: {String(error)}</p>;
   return (
     <div style={{ padding: 20 }} className="course-table">
-      <h2 style={{ marginBottom: 20 }}>Quản Lý Khóa Học</h2>
+      <h2 style={{ marginBottom: 20 }}>DANH SÁCH KHÓA HỌC</h2>
 
       <Table
         dataSource={dataSource}

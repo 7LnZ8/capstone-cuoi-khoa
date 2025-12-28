@@ -1,0 +1,60 @@
+@import "../../styles/abstracts/variables";
+
+.navbar {
+  background-color: $blue-midnight;
+  height: $sp-10 + 30;
+  .nav-wrap {
+    gap: $sp-10;
+    .nav-logo {
+      text-decoration: none !important;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      h2 {
+        margin: 0 0 0 $sp-5;
+        font-size: $h1;
+        font-family: $font-main;
+        font-weight: $fwXL;
+        @include logo;
+      }
+    }
+    .nav-left {
+      div {
+        gap: $sp-7;
+        .link-route {
+          color: $white;
+          font-weight: $fwL;
+          font-size: $text-l;
+
+          &:hover {
+            text-shadow: $tsh;
+          }
+        }
+      }
+    }
+    .form-look {
+      gap: $sp-3;
+      font-weight: $fwM;
+      .btn-look {
+        @include btn-base;
+        @include btn-tone($blue-light, $blue-dark);
+        &:hover {
+          color: $blue-light !important;
+          background-color: $blue-dark !important;
+          text-shadow: $tsh;
+        }
+      }
+    }
+    .nav-right {
+      .btn-auth {
+        font-weight: $fwM;
+        @include btn-tone($blue-light, $blue-dark);
+        &:hover {
+          color: $blue-light !important;
+          background-color: $blue-dark !important;
+          text-shadow: $tsh;
+        }
+      }
+    }
+  }
+}

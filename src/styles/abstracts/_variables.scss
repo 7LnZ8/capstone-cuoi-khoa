@@ -1,7 +1,8 @@
 // TONE XANH CHỦ ĐẠO
-$blue-midnight: #005461;
-$blue-dark: #018790;
-$blue-light: #00b7b5;
+$blue-midnight: #0f2854;
+$blue-dark: #1c4d8d;
+$blue-medium: #4988c4;
+$blue-light: #bde8f5;
 
 // Xám nền nhẹ
 $gray-light: #f4f4f4;
@@ -27,12 +28,12 @@ $font-main: "Roboto", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
   sans-serif;
 
 // HEADING SCALE (h1–h6: 12–40px)
-$h-1: 40px;
-$h-2: 32px;
-$h-3: 28px;
-$h-4: 22px;
-$h-5: 16px;
-$h-6: 12px;
+$h1: 40px;
+$h2: 32px;
+$h3: 28px;
+$h4: 22px;
+$h5: 16px;
+$h6: 12px;
 
 // TEXT SCALE (10–25px)
 $text-s: 10px;
@@ -41,14 +42,16 @@ $text-l: 18px;
 $text-xl: 25px;
 
 // SPACING
-$sp-0: 0;
 $sp-1: 4px;
 $sp-2: 8px;
 $sp-3: 12px;
 $sp-4: 16px;
 $sp-5: 20px;
 $sp-6: 24px;
-$sp-8: 32px;
+$sp-7: 32px;
+$sp-8: 38px;
+$sp-9: 45px;
+$sp-10: 70px;
 
 // RADIUS
 $rad-s: 4px;
@@ -57,8 +60,10 @@ $rad-l: 12px;
 $rad-pill: 999px;
 
 // SHADOW
-$sh-s: 0 1px 2px rgba(0, 0, 0, 0.06);
-$sh-m: 0 4px 10px rgba(0, 0, 0, 0.12);
+$sh-s: 0 1px 2px rgba(255, 255, 255, 0.333);
+$sh-m: 2px 4px 10px rgba(255, 255, 255, 0.266);
+
+$tsh: 0 0 40px rgba(255, 255, 255, 0.6), 0 0 40px rgba(255, 255, 255, 0.4);
 
 // BREAKPOINTS (mới)
 // Mobile nhỏ → từ đây trở lên là đỡ “vỡ” giao diện
@@ -69,7 +74,14 @@ $bp-lg: 1024px; // desktop
 $bp-xl: 1280px; //desktop lớn
 $bp-xxl: 1536px; //desktop siêu rộng
 
-$w30: 30%;
-$w50: 50%;
-$w80: 80%;
-$w100: 100%;
+$p15: 15%;
+$p20: 20%;
+$p50: 50%;
+$p75: 75%;
+$p80: 80%;
+$pxl: 100%;
+
+$fwS: 500;
+$fwM: 600;
+$fwL: 700;
+$fwXL: 800;

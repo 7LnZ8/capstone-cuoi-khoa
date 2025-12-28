@@ -1,0 +1,13 @@
+@import "../../styles/abstracts/variables";
+
+.content-admin {
+  position: relative;
+  display: flex;
+  //   width: $pxl;
+  .side-bar {
+    width: $p15;
+  }
+  .children-admin {
+    width: $p75;
+  }
+}

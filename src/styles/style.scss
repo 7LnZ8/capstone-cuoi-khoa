@@ -21,7 +21,8 @@
 //layouts component
 @import "../layouts/HomeLayout/HomeLayout.scss";
 @import "../layouts/AdminLayout/AdminLayout.scss";
-
+@import "../layouts/AdminLayout/NavBar.scss";
+@import "../layouts/AdminLayout/Footer.scss";
 //pages
 @import "../pages/home/Home.scss";
 @import "../pages/course-detail/CourseDetail.scss";

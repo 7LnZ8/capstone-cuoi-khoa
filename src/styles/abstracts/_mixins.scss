@@ -69,12 +69,25 @@
 
 // Tone màu cho button
 @mixin btn-tone($bg, $color) {
-  background-color: $bg;
+  background-color: $bg !important;
   color: $color;
   box-shadow: $sh-s;
+}
 
-  &:hover:not(:disabled) {
-    filter: brightness(0.96);
+//Logo
+
+@mixin logo {
+  position: relative;
+  background-image: url(/public/logo.jpg);
+  background-size: cover;
+  background-clip: text;
+  color: transparent;
+  animation: animate 20s linear infinite;
+
+  @keyframes animate {
+    to {
+      background-position-x: -500px;
+    }
   }
 }
 
