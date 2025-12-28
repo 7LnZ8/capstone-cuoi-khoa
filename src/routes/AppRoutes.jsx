@@ -21,6 +21,7 @@ import CategoryManager from "../pages/admin/categories/CategoryManager";
 import CategoryForm from "../pages/admin/categories/CategoryForm";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import AdminRoute from "./AdminRoute.jsx";
+import CreateAccount from "../pages/admin/courses/CreateAccount.jsx";
 
 export default function AppRouter() {
   const routes = useRoutes([
@@ -50,6 +51,9 @@ export default function AppRouter() {
           element: <AdminRoute />, //Vào file này xem ghi chú
           children: [
             // { index: true, element: <CourseManager /> },
+
+            //Account
+            { path: "account/create", element: <CreateAccount /> },
 
             // Courses
             { path: "courses", element: <CourseManager /> },

@@ -76,7 +76,7 @@ export default function CourseManager() {
     {
       title: "Danh mục",
       dataIndex: "danhMucKhoaHoc",
-      width: 120,
+      width: 180,
     },
     {
       title: "Hành động",
@@ -110,7 +110,7 @@ export default function CourseManager() {
       ),
     },
   ];
-  if (isPending) return <p>Đang tải khóa học...</p>;
+  if (isPending) return <Spinner>Đang tải khóa học...</Spinner>;
   if (isError) return <p>Lỗi: {String(error)}</p>;
   return (
     <div style={{ padding: 20 }} className="course-table">

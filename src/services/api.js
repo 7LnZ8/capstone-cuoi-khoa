@@ -1,9 +1,3 @@
-// Cấu hình kết nối API
-// import axios from "axios";
-
-// axios.defaults.baseURL =
-//   "https://elearningnew.cybersoft.edu.vn/api/QuanLyKhoaHoc/";
-
 import axios from "axios";
 
 const TOKEN_CYBERSOFT =
@@ -18,18 +12,62 @@ export const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-  const ACESSTOKEN = localStorage.getItem("ACESSTOKEN");
+  const ACCESSTOKEN = localStorage.getItem("ACCESSTOKEN");
 
   config.headers = {
     ...config.headers,
     TokenCybersoft: TOKEN_CYBERSOFT,
   };
 
-  if (ACESSTOKEN) {
-    config.headers.Authorization = `Bearer ${ACESSTOKEN}`;
+  if (ACCESSTOKEN) {
+    config.headers.Authorization = `Bearer${ACCESSTOKEN}`;
   } else {
     delete config.headers.Authorization;
   }
 
   return config;
 });
+
+export const apiQLND = axios.create({
+  baseURL: "https://elearningnew.cybersoft.edu.vn/api/QuanLyNguoiDung/",
+  timeout: 10000, // 10 seconds
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+apiQLND.interceptors.request.use((config) => {
+  const ACCESSTOKEN = localStorage.getItem("ACCESSTOKEN");
+
+  config.headers = {
+    ...config.headers,
+    TokenCybersoft: TOKEN_CYBERSOFT,
+  };
+
+  if (TOKEN_CYBERSOFT) {
+    config.headers.Authorization = `Bearer ${ACCESSTOKEN}`;
+  } else {
+    delete config.headers.Authorization;
+  }
+
+  return config;
+});
+
+// email
+// :
+// "giang@gmail.com"
+// hoTen
+// :
+// "Trịnh Xuân Giang"
+// maNhom
+// :
+// "GP01"
+// matKhau
+// :
+// "11111111"
+// soDT
+// :
+// "0832369372"
+// taiKhoan
+// :
+// "trinhgiang"
