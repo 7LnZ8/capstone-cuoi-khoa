@@ -52,6 +52,7 @@ export default function CreateAccount() {
       ...values,
     };
     console.log(payload);
+
     try {
       const data = await addUserDemo.mutateAsync(payload);
       console.log("Đăng ký thành công:", data);

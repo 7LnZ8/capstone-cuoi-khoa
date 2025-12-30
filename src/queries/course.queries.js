@@ -13,8 +13,18 @@ export const useCourses = () => {
     },
   });
 };
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidHJpbmhnaWFuZyIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkhWIiwibmJmIjoxNzY2ODUyODg2LCJleHAiOjE3NjY4NTY0ODZ9.Eq3wXVObKasm7cBwxVlFpasrThg-R53Ik2AlgEmjBK0
 
+//Thêm khóa học
+export const useAddCourse = () => {
+  return useMutation({
+    mutationFn: async (payload) => {
+      const res = await api.post("ThemKhoaHoc", payload);
+      return res.data;
+    },
+  });
+};
+
+//Thêm tài khoản - Sẽ tách về user
 export const useAddUserDemo = () => {
   return useMutation({
     mutationFn: async (payload) => {
@@ -25,6 +35,7 @@ export const useAddUserDemo = () => {
   });
 };
 
+//Đăng ký - tách về user
 export const useRegister = () => {
   return useMutation({
     mutationFn: async (payload) => {
@@ -34,6 +45,7 @@ export const useRegister = () => {
   });
 };
 
+//Đăng nhập - tách về user
 export const useLogin = () => {
   return useMutation({
     mutationFn: async (payload) => {
@@ -42,8 +54,3 @@ export const useLogin = () => {
     },
   });
 };
-
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidHJpbmhnaWFuZyIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkhWIiwibmJmIjoxNzY2ODUyODg2LCJleHAiOjE3NjY4NTY0ODZ9.Eq3wXVObKasm7cBwxVlFpasrThg-R53Ik2AlgEmjBK0
-// export const useAddUserAdminSide = () {
-
-// }

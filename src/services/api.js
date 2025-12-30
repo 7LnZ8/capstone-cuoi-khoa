@@ -20,7 +20,7 @@ api.interceptors.request.use((config) => {
   };
 
   if (ACCESSTOKEN) {
-    config.headers.Authorization = `Bearer${ACCESSTOKEN}`;
+    config.headers.Authorization = `Bearer ${ACCESSTOKEN}`;
   } else {
     delete config.headers.Authorization;
   }
@@ -44,7 +44,7 @@ apiQLND.interceptors.request.use((config) => {
     TokenCybersoft: TOKEN_CYBERSOFT,
   };
 
-  if (TOKEN_CYBERSOFT) {
+  if (ACCESSTOKEN) {
     config.headers.Authorization = `Bearer ${ACCESSTOKEN}`;
   } else {
     delete config.headers.Authorization;

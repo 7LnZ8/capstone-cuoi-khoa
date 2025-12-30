@@ -54,11 +54,11 @@
         border-radius: 0 $rad-m $rad-m 0;
         @include btn-look;
         @include btn-tone($blue-light, $blue-dark);
-        &:hover {
-          color: $blue-light !important;
-          background-color: $blue-dark !important;
-          text-shadow: $tsh;
-        }
+        // &:hover {
+        //   color: $blue-light !important;
+        //   background-color: $blue-dark !important;
+        //   text-shadow: $tsh;
+        // }
       }
     }
     .nav-right {

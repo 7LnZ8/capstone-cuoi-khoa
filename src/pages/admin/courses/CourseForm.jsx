@@ -1,41 +1,70 @@
-import { Button, Form, Input, Upload } from "antd";
-import { useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { Button, DatePicker, Input, message, Select, Upload } from "antd";
+import { useLocation } from "react-router-dom";
+import {
+  groupOptions,
+  themKhoaHocSchema,
+} from "../../../schemas/course.schema.js";
+import { Controller, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import dayjs from "dayjs";
+import { useEffect, useState } from "react";
+import { useAddCourse } from "../../../queries/course.queries.js";
+import { useGetCategoriesCode } from "../../../queries/category.queries.js";
+import { api } from "../../../services/api.js";
+import { Spinner } from "react-bootstrap";
+
+const defaultValues = {
+  maKhoaHoc: "",
+  biDanh: "",
+  tenKhoaHoc: "",
+  moTa: "",
+  luotXem: 0,
+  danhGia: 0,
+  ngayTao: dayjs().format("DD/MM/YYYY"),
+  maDanhMucKhoaHoc: "FrontEnd",
+  taiKhoanNguoiTao: "trinhgiang",
+  hinhAnh: "",
+  maNhom: "GP01",
+};
+
 export default function CreateCourse() {
-  // const [open, setOpen] = useState(false);
-  // const [form] = Form.useForm();
+  const location = useLocation();
+  const [fileList, setFileList] = useState([]);
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(themKhoaHocSchema),
+    defaultValues,
+  });
 
-  // const handleOpen = () => setOpen(true);
-  // const handleCancel = () => {
-  //   form.resetFields();
-  //   setOpen(false);
-  // };
+  const addCourses = useAddCourse();
+  const { data, isPending, isError, error } = useGetCategoriesCode();
 
-  // const handleFinish = (values) => {
-  //   console.log("DATA GỬI API:", values);
-  //   setOpen(false);
-  //   form.resetFields();
-  // };
-  const [imageFile, setImageFile] = useState({});
-
-  const handleFinish = (values) => {
+  const onSubmit = async (values) => {
     const payload = {
       ...values,
-      hinhAnh: imageFile?.name,
+      biDanh: values.maKhoaHoc,
+      hinhAnh: fileList[0]?.name,
     };
-
-    console.log("DATA GỬI API:", payload);
+    console.log(payload);
+    try {
+      const data = await addCourses.mutateAsync(payload);
+      console.log("Form Data:", data);
+      message.success("Submit thành công!");
+    } catch (err) {
+      console.log("Lỗi tạo:", err);
+    }
   };
-  // console.log(imageFile.name);
-  const location = useLocation();
 
-  //tên ảnh được lưu
-  console.log(imageFile.name);
-
-  const { id } = useParams();
-  if (id) {
-    console.log(id);
-  }
+  // if (isPending)
+  //   return (
+  //     <div className="loading-text">
+  //       <Spinner></Spinner> Nội dung đang tải...
+  //     </div>
+  //   );
+  // if (isError) return <p>Lỗi: {String(error)}</p>;
 
   return (
     <div className="form-course">
@@ -44,42 +73,152 @@ export default function CreateCourse() {
       ) : (
         <h3>CẬP NHẬT KHÓA HỌC</h3>
       )}
-      <Form layout="vertical" onFinish={handleFinish}>
-        <Form.Item label="Mã khóa học" name="maKhoaHoc">
-          <Input placeholder="VD: BC01" />
-        </Form.Item>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div>
+          <label>Mã khóa học</label>
+          <Controller
+            name="maKhoaHoc"
+            control={control}
+            render={({ field }) => <Input {...field} placeholder="VD: BC01" />}
+          />
 
-        <Form.Item label="Tên khóa học" name="tenKhoaHoc">
-          <Input placeholder="VD: Lập trình React cơ bản" />
-        </Form.Item>
+          {errors.maKhoaHoc && (
+            <p className="text-danger">{errors.maKhoaHoc.message}</p>
+          )}
+        </div>
+        <div>
+          <label>Tên khóa học</label>
+          <Controller
+            name="tenKhoaHoc"
+            control={control}
+            render={({ field }) => (
+              <Input {...field} placeholder="VD: Lập trình React cơ bản" />
+            )}
+          />
+          {errors.tenKhoaHoc && (
+            <p className="text-danger">{errors.tenKhoaHoc.message}</p>
+          )}
+        </div>
 
-        <Form.Item label="Mô tả" name="moTa">
-          <Input.TextArea rows={3} placeholder="Nhập mô tả" />
-        </Form.Item>
+        <div>
+          <label>Mô tả</label>
+          <Controller
+            name="moTa"
+            control={control}
+            render={({ field }) => (
+              <Input.TextArea {...field} rows={3} placeholder="Nhập mô tả" />
+            )}
+          />
+          {errors.moTa && <p className="text-danger">{errors.moTa.message}</p>}
+        </div>
 
-        <Form.Item label="Hình ảnh">
-          <Upload
-            accept="image/*"
-            maxCount={1}
-            showUploadList
-            beforeUpload={(file) => {
-              setImageFile(file);
-              return false;
-            }}
-          >
-            <Button>Chọn hình ảnh khóa học</Button>
-          </Upload>
-        </Form.Item>
+        <div>
+          <label>Tải ảnh khóa học</label>
+          <Controller
+            name="hinhAnh"
+            control={control}
+            render={({ field }) => (
+              <Upload
+                accept="image/*"
+                maxCount={1}
+                showUploadList
+                fileList={fileList} // quản lý hiển thị file
+                beforeUpload={(file) => {
+                  setFileList([file]); // thêm file vào list
+                  field.onChange(file.name); // đồng bộ với RHF
+                  return false; // ngăn Upload tự upload
+                }}
+                onRemove={() => {
+                  setFileList([]); // xóa file khỏi list
+                  field.onChange(null); // xóa file khỏi RHF
+                }}
+              >
+                <button type="button">Chọn từ máy</button>
+              </Upload>
+            )}
+          />
+          {errors.hinhAnh && (
+            <p className="text-danger">{errors.hinhAnh.message}</p>
+          )}
+        </div>
 
-        <Form.Item label="Danh mục" name="maDanhMucKhoaHoc">
-          <Input placeholder="VD: FrontEnd" />
-        </Form.Item>
-        <Button type="primary" htmlType="submit">
+        <div>
+          <label>Mã nhóm</label>
+          <Controller
+            name="maNhom"
+            control={control}
+            render={({ field }) => (
+              <Select
+                {...field}
+                style={{ width: "100%" }}
+                placeholder="Chọn nhóm"
+                onChange={(value) => field.onChange(value)}
+              >
+                {groupOptions.map((gp) => (
+                  <Select.Option key={gp} value={gp}>
+                    {gp}
+                  </Select.Option>
+                ))}
+              </Select>
+            )}
+          />
+          {errors.maNhom && (
+            <p className="text-danger">{errors.maNhom.message}</p>
+          )}
+        </div>
+
+        <div>
+          <label>Ngày tạo</label>
+          <Controller
+            name="ngayTao"
+            control={control}
+            render={({ field }) => (
+              <DatePicker
+                {...field}
+                value={field.value ? dayjs(field.value, "DD/MM/YYYY") : null}
+                format="DD/MM/YYYY"
+                style={{ width: "100%" }}
+                onChange={(date) =>
+                  field.onChange(date ? date.format("DD/MM/YYYY") : "")
+                }
+              />
+            )}
+          />
+          {errors.ngayTao && (
+            <p className="text-danger">{errors.ngayTao.message}</p>
+          )}
+        </div>
+        <div>
+          <label>Mã danh mục khóa học</label>
+          <Controller
+            name="maDanhMucKhoaHoc"
+            control={control}
+            render={({ field }) => (
+              <Select
+                {...field}
+                style={{ width: "100%" }}
+                placeholder="Chọn nhóm"
+                onChange={(value) => field.onChange(value)}
+              >
+                {data?.map((item) => (
+                  <Select.Option key={item.maDanhMuc} value={item.maDanhMuc}>
+                    {item.maDanhMuc}
+                  </Select.Option>
+                ))}
+              </Select>
+            )}
+          />
+          {errors.maDanhMucKhoaHoc && (
+            <p className="text-danger">{errors.maDanhMucKhoaHoc.message}</p>
+          )}
+        </div>
+
+        <button type="submit">
           {location.pathname === "/admin/courses/create"
             ? "Tạo Khóa Học"
             : "Cập Nhật Khóa Học"}
-        </Button>
-      </Form>
+        </button>
+      </form>
     </div>
   );
 }
