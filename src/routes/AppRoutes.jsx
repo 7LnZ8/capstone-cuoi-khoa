@@ -1,6 +1,6 @@
 //Khai báo tất cả route của hệ thống
 import React from "react";
-import { useRoutes } from "react-router-dom";
+import { Navigate, useRoutes } from "react-router-dom";
 
 // Layouts
 import HomeLayout from "../layouts/HomeLayout/HomeLayout";
@@ -49,15 +49,15 @@ export default function AppRouter() {
         {
           element: <AdminRoute />, //Vào file này xem ghi chú
           children: [
-            { index: true, element: <CourseManager /> },
+            { index: true, element: <Navigate to="courses" replace /> },
 
             {
               //user manage
               path: "users",
               children: [
                 { index: true, element: <UserManager /> },
-                { path: "user/create", element: <CreateAccount /> },
-                { path: "user/:id/edit", element: <CreateAccount /> },
+                { path: "create", element: <CreateAccount /> },
+                { path: ":id/edit", element: <CreateAccount /> },
               ],
             },
 
@@ -67,8 +67,8 @@ export default function AppRouter() {
               children: [
                 { index: true, element: <CourseManager /> },
 
-                { path: "courses/create", element: <CourseForm /> },
-                { path: "courses/:id/edit", element: <CourseForm /> },
+                { path: "create", element: <CourseForm /> },
+                { path: ":id/edit", element: <CourseForm /> },
               ],
             },
 

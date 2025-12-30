@@ -1,12 +1,9 @@
-.content-admin {
-  position: relative;
-  display: flex;
-}
-.content-admin .side-bar {
-  width: 15%;
-}
-.content-admin .children-admin {
-  width: 75%;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 .navbar {
@@ -28,7 +25,7 @@
   font-family: "Roboto", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-weight: 800;
   position: relative;
-  background-image: url(/public/logo.jpg);
+  background-image: url(/logo.jpg);
   background-size: cover;
   -webkit-background-clip: text;
           background-clip: text;
@@ -46,22 +43,29 @@
 .navbar .nav-wrap .nav-left div .link-route {
   color: #ffffff;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 16px;
+  text-decoration: none;
 }
 .navbar .nav-wrap .nav-left div .link-route:hover {
-  text-shadow: 0 0 40px rgba(255, 255, 255, 0.6), 0 0 40px rgba(255, 255, 255, 0.4);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.173), 0 0 10px rgba(255, 255, 255, 0.195);
+}
+.navbar .nav-wrap .nav-left div .active-navbar {
+  color: #4988c4;
+  font-weight: 700;
 }
 .navbar .nav-wrap .form-look {
-  gap: 12px;
   font-weight: 600;
 }
+.navbar .nav-wrap .form-look .input-look {
+  border-radius: 8px 0 0 8px;
+}
 .navbar .nav-wrap .form-look .btn-look {
+  border-radius: 0 8px 8px 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 4px;
   padding: 8px 16px;
-  border-radius: 8px;
   border: 1px solid transparent;
   font-family: "Roboto", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 14px;
@@ -77,9 +81,13 @@
   cursor: not-allowed;
 }
 .navbar .nav-wrap .form-look .btn-look:hover {
+  background-color: #1c4d8d !important;
+  color: #bde8f5;
+}
+.navbar .nav-wrap .form-look .btn-look:hover {
   color: #bde8f5 !important;
   background-color: #1c4d8d !important;
-  text-shadow: 0 0 40px rgba(255, 255, 255, 0.6), 0 0 40px rgba(255, 255, 255, 0.4);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.173), 0 0 10px rgba(255, 255, 255, 0.195);
 }
 .navbar .nav-wrap .nav-right .btn-auth {
   font-weight: 600;
@@ -88,9 +96,48 @@
   box-shadow: 0 1px 2px rgba(255, 255, 255, 0.333);
 }
 .navbar .nav-wrap .nav-right .btn-auth:hover {
+  background-color: #1c4d8d !important;
+  color: #bde8f5;
+}
+.navbar .nav-wrap .nav-right .btn-auth:hover {
   color: #bde8f5 !important;
   background-color: #1c4d8d !important;
-  text-shadow: 0 0 40px rgba(255, 255, 255, 0.6), 0 0 40px rgba(255, 255, 255, 0.4);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.173), 0 0 10px rgba(255, 255, 255, 0.195);
+}
+
+.content-admin {
+  position: relative;
+  display: flex;
+}
+.content-admin .side-bar {
+  width: 15%;
+}
+.content-admin .children-admin {
+  width: 85%;
+}
+
+.side-bar {
+  background-color: #0f172a;
+  padding: 24px 16px 16px 16px;
+}
+.side-bar div {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.side-bar div .link-route {
+  position: relative;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+}
+.side-bar div .link-route:hover {
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.173), 0 0 10px rgba(255, 255, 255, 0.195);
+}
+.side-bar div .active-sidebar {
+  color: #4988c4;
+  font-weight: 700;
 }
 
 footer {
@@ -112,7 +159,7 @@ footer div div div div .nav-logo h2 {
   font-family: "Roboto", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-weight: 800;
   position: relative;
-  background-image: url(/public/logo.jpg);
+  background-image: url(/logo.jpg);
   background-size: cover;
   -webkit-background-clip: text;
           background-clip: text;
@@ -129,10 +176,47 @@ footer div div div div span {
 }
 
 .form-course {
-  padding: 38px;
-  margin: 38px auto;
+  padding: 45px;
+}
+.form-course h3 {
+  font-size: 28px;
+  font-weight: 600;
+}
+.form-course .ant-form button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-family: "Roboto", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  background-color: #1c4d8d !important;
+  color: #bde8f5;
+  box-shadow: 0 1px 2px rgba(255, 255, 255, 0.333);
+}
+.form-course .ant-form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.form-course .ant-form button:hover {
+  background-color: #bde8f5 !important;
+  color: #1c4d8d;
 }
 
 .course-table {
-  margin: 38px auto;
+  padding: 45px;
+}
+.course-table h3 {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.loading-text {
+  text-align: center;
+  margin: 70px auto;
 }

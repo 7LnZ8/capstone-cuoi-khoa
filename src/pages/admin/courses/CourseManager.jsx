@@ -45,7 +45,7 @@ export default function CourseManager() {
           height={40}
           src={src}
           // nếu ảnh lỗi thì dùng ảnh này
-          fallback="/public/image.png"
+          fallback="/image.png"
           style={{ objectFit: "cover", borderRadius: 4 }}
         />
       ),
@@ -110,16 +110,28 @@ export default function CourseManager() {
       ),
     },
   ];
-  if (isPending) return <Spinner>Oo</Spinner>;
+
+  if (isPending)
+    return (
+      <div className="loading-text">
+        <Spinner></Spinner> Nội dung đang tải...
+      </div>
+    );
   if (isError) return <p>Lỗi: {String(error)}</p>;
+
   return (
-    <div style={{ padding: 20 }} className="course-table">
-      <h2 style={{ marginBottom: 20 }}>DANH SÁCH KHÓA HỌC</h2>
+    <div className="course-table">
+      <h3>DANH SÁCH KHÓA HỌC</h3>
 
       <Table
         dataSource={dataSource}
         columns={columns}
-        pagination={{ pageSize: 5 }}
+        pagination={{
+          pageSize: 5,
+          responsive: true,
+          showSizeChanger: false,
+          position: ["bottomRight"],
+        }}
         bordered
       />
     </div>

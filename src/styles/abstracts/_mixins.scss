@@ -67,18 +67,49 @@
   }
 }
 
+@mixin btn-look {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $sp-1;
+  padding: $sp-2 $sp-4;
+  border: 1px solid transparent;
+  font-family: $font-main;
+  font-size: $text-m;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease,
+    border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
 // Tone màu cho button
 @mixin btn-tone($bg, $color) {
   background-color: $bg !important;
   color: $color;
   box-shadow: $sh-s;
+
+  &:hover {
+    background-color: $color !important;
+    color: $bg;
+  }
+}
+
+@mixin h3 {
+  h3 {
+    font-size: $h3;
+    font-weight: $fwM;
+  }
 }
 
 //Logo
-
 @mixin logo {
   position: relative;
-  background-image: url(/public/logo.jpg);
+  background-image: url(/logo.jpg);
   background-size: cover;
   background-clip: text;
   color: transparent;

@@ -2,15 +2,17 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "./NavBar.jsx";
 import Footer from "./Footer.jsx";
+import SideBar from "./SideBar.jsx";
 
 export default function AdminLayout() {
   return (
     <div className="admin-layout">
       <Navbar />
-      <main className="content-admin" style={{ minHeight: "100vh" }}>
-        <div className="side-bar">
-          <h1>side bar</h1>
-        </div>
+      <main
+        className="content-admin"
+        style={{ minHeight: "calc(100vh - 120px)" }}
+      >
+        <SideBar />
 
         <div className="children-admin">
           <Outlet />

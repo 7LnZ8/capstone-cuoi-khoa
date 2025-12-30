@@ -2,8 +2,8 @@ import Logo from "./Logo.jsx";
 
 export default function Footer() {
   return (
-    <footer className="mt-5">
-      <div className="border-top">
+    <footer>
+      <div>
         <div className="container py-3">
           <div className="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
             <div className="d-flex align-items-center gap-3">

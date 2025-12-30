@@ -1,11 +1,29 @@
 @import "../../../styles/abstracts/variables";
+
 .form-course {
-  padding: $sp-8;
-  margin: $sp-8 auto;
-  // width: $pm;
+  padding: $sp-9;
+  @include h3;
+
+  .ant-form {
+    button {
+      @include btn-base;
+      @include btn-tone($blue-dark, $blue-light);
+    }
+  }
 }
 
+// .course-table {
+//   margin: $sp-8 auto;
+//   // width: $pl;
+// }
+
+//Courses Manager
 .course-table {
-  margin: $sp-8 auto;
-  // width: $pl;
+  padding: $sp-9;
+  @include h3;
+}
+
+.loading-text {
+  text-align: center;
+  margin: $sp-10 auto;
 }

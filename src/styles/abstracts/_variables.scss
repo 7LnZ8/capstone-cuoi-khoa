@@ -13,7 +13,7 @@ $warm-2: #faac68; // cam
 $warm-3: #fa6868; // đỏ cam
 
 // Màu chữ
-$ink-1: #0f172a; // chữ đậm
+$blue-carbon: #0f172a; // chữ đậm
 $ink-2: #475569; // chữ phụ
 $ink-3: #94a3b8; // ghi chú
 
@@ -38,7 +38,7 @@ $h6: 12px;
 // TEXT SCALE (10–25px)
 $text-s: 10px;
 $text-m: 14px;
-$text-l: 18px;
+$text-l: 16px;
 $text-xl: 25px;
 
 // SPACING
@@ -63,7 +63,7 @@ $rad-pill: 999px;
 $sh-s: 0 1px 2px rgba(255, 255, 255, 0.333);
 $sh-m: 2px 4px 10px rgba(255, 255, 255, 0.266);
 
-$tsh: 0 0 40px rgba(255, 255, 255, 0.6), 0 0 40px rgba(255, 255, 255, 0.4);
+$tsh: 0 0 10px rgba(255, 255, 255, 0.173), 0 0 10px rgba(255, 255, 255, 0.195);
 
 // BREAKPOINTS (mới)
 // Mobile nhỏ → từ đây trở lên là đỡ “vỡ” giao diện
@@ -78,8 +78,8 @@ $p15: 15%;
 $p20: 20%;
 $p50: 50%;
 $p75: 75%;
-$p80: 80%;
-$pxl: 100%;
+$p85: 85%;
+$p100: 100%;
 
 $fwS: 500;
 $fwM: 600;

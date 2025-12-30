@@ -1,8 +1,12 @@
 // Navbar.jsx
-import { NavLink } from "react-router-dom";
+import { Link, useMatch } from "react-router-dom";
 import Logo from "./Logo.jsx";
+import { Form, Input } from "antd";
 
 export default function Navbar() {
+  const matchCourses = useMatch("/admin/courses/*");
+  const matchUsers = useMatch("/admin/users/*");
+  const matchEnroll = useMatch("/admin/enroll/*");
   return (
     <nav className="navbar navbar-expand-lg shadow-sm">
       <div className="container-fluid nav-wrap">
@@ -10,49 +14,41 @@ export default function Navbar() {
 
         <div className="collapse navbar-collapse nav-left" id="mainNavbar">
           <div className="d-flex align-items-center">
-            <NavLink
-              to="/admin"
-              end
-              className={({ isActive }) =>
-                `nav-link link-route ${isActive ? "fw-bold text-primary" : ""}`
-              }
+            <Link
+              to="/admin/courses"
+              className={`link-route ${matchCourses ? "active-navbar" : ""}`}
             >
               QUẢN LÝ KHÓA HỌC
-            </NavLink>
-
-            <NavLink
+            </Link>
+            <Link
               to="/admin/users"
-              className={({ isActive }) =>
-                `nav-link link-route ${isActive ? "fw-bold text-primary" : ""}`
-              }
+              className={`link-route ${matchUsers ? "active-navbar" : ""}`}
             >
               QUAN LÝ NGƯỜI DÙNG
-            </NavLink>
-            <NavLink
+            </Link>
+            <Link
               to="/admin/enroll"
-              className={({ isActive }) =>
-                `nav-link link-route ${isActive ? "fw-bold text-primary" : ""}`
-              }
+              className={`link-route ${matchEnroll ? "active-navbar" : ""}`}
             >
               QUAN LÝ GHI DANH
-            </NavLink>
+            </Link>
 
-            <form className="d-flex form-look">
-              <input
+            <Form className="d-flex form-look">
+              <Input
                 className="form-control input-look"
                 placeholder="Tìm khóa học..."
               />
               <button className="btn btn-look">Tìm</button>
-            </form>
+            </Form>
           </div>
 
           <div className="ms-auto d-flex nav-right">
-            <NavLink to="/login" className="btn btn-auth">
+            <Link to="/login" className="btn btn-auth">
               Đăng nhập
-            </NavLink>
-            <NavLink to="/register" className="btn btn-auth">
+            </Link>
+            <Link to="/register" className="btn btn-auth">
               Đăng xuất
-            </NavLink>
+            </Link>
           </div>
         </div>
       </div>
