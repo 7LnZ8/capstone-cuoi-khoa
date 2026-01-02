@@ -24,6 +24,8 @@ export const registerSchema = z.object({
   email: z.string().email("Email không hợp lệ"),
 });
 
+const loaiNguoiDung = ["GV", "HV"];
+
 export const createUserSchema = z.object({
   taiKhoan: z.string().min(3, "Tài khoản phải có ít nhất 3 ký tự"),
   matKhau: z.string().min(6, "Mật khẩu phải có ít nhất 6 ký tự"),
@@ -34,6 +36,13 @@ export const createUserSchema = z.object({
     .max(11, "Số điện thoại tối đa 11 số")
     .regex(/^[0-9]+$/, "Số điện thoại chỉ được chứa số"),
   email: z.string().email("Email không hợp lệ"),
-  maLoaiNguoiDung: z.enum(["GV", "HV"]),
-  maNhom: z.string().default("GP01"),
+  maLoaiNguoiDung: z.enum(loaiNguoiDung, {
+    errorMap: () => ({ message: "Chọn loại người dùng" }),
+  }),
+  maNhom: z.string(),
+});
+
+//tìm kiếm người dùng
+export const searchTaiKhoanSchema = z.object({
+  taiKhoan: z.string().trim().min(1, "Vui lòng nhập tài khoản"),
 });

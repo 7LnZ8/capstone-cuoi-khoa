@@ -1,7 +1,27 @@
-@import "../../../styles/abstracts/variables";
+.form-user {
+  padding: $sp-9;
+  @include h3;
 
-//CoursesForm
-.form-course {
+  .form-search {
+    display: flex;
+    gap: $sp-3;
+    margin-bottom: $sp-3;
+    .ant-input {
+      @include input-base;
+    }
+    button {
+      @include btn-base;
+      @include btn-tone($blue-light, $blue-dark);
+    }
+  }
+  .search-not-found {
+    color: $warm-3;
+    font-size: $text-m;
+    font-style: italic;
+  }
+}
+.form-create-user,
+.form-update-user {
   padding: $sp-9;
   @include h3;
 
@@ -32,34 +52,9 @@
     width: 100%;
   }
 
-  // DatePicker
-  .ant-picker {
-    width: 100%;
-  }
-
-  // Upload
-  .ant-upload {
-    width: 100%;
-    button {
-      @include btn-base;
-      @include btn-tone($blue-light, $blue-dark);
-    }
-  }
-
   // nút submit
   button {
     @include btn-base;
     @include btn-tone($blue-light, $blue-dark);
   }
-}
-
-//Courses Manager
-.course-table {
-  padding: $sp-9;
-  @include h3;
-}
-
-.loading-text {
-  text-align: center;
-  margin: $sp-10 auto;
 }

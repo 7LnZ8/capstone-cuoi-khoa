@@ -11,6 +11,9 @@ export const useCourses = () => {
       console.log("Lấy danh sách khóa học:", res.data);
       return res.data;
     },
+    staleTime: 5 * 60 * 1000, //thời gian dự liệu được xem là mới và ko gọi lại api trong khoản tgian này
+    refetchOnWindowFocus: false, //không gọi lại api khi đổi tab
+    refetchOnReconnect: false, //đổi mạng ko tự động gọi api
   });
 };
 

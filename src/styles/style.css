@@ -290,3 +290,162 @@ footer div div div div span {
   text-align: center;
   margin: 70px auto;
 }
+
+.form-user {
+  padding: 45px;
+}
+.form-user h3 {
+  font-size: 28px;
+  font-weight: 600;
+}
+.form-user .form-search {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.form-user .form-search .ant-input {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #94a3b8;
+  background-color: #ffffff;
+  font-family: "Roboto", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 14px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s;
+}
+.form-user .form-search .ant-input:focus {
+  outline: none;
+  border-color: #bde8f5;
+  box-shadow: 0 0 0 1px rgba(0, 183, 181, 0.4);
+  background-color: #f9ffff;
+}
+.form-user .form-search .ant-input::-moz-placeholder {
+  color: #94a3b8;
+}
+.form-user .form-search .ant-input::placeholder {
+  color: #94a3b8;
+}
+.form-user .form-search button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-family: "Roboto", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  background-color: #bde8f5 !important;
+  color: #1c4d8d;
+  box-shadow: 0 1px 2px rgba(255, 255, 255, 0.333);
+}
+.form-user .form-search button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.form-user .form-search button:hover {
+  background-color: #1c4d8d !important;
+  color: #bde8f5;
+}
+.form-user .search-not-found {
+  color: #fa6868;
+  font-size: 14px;
+  font-style: italic;
+}
+
+.form-create-user,
+.form-update-user {
+  padding: 45px;
+}
+.form-create-user h3,
+.form-update-user h3 {
+  font-size: 28px;
+  font-weight: 600;
+}
+.form-create-user form,
+.form-update-user form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.form-create-user label,
+.form-update-user label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+.form-create-user .ant-input,
+.form-create-user .ant-input-textarea,
+.form-create-user .ant-input-textarea textarea,
+.form-update-user .ant-input,
+.form-update-user .ant-input-textarea,
+.form-update-user .ant-input-textarea textarea {
+  width: 100%;
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #94a3b8;
+  background-color: #ffffff;
+  font-family: "Roboto", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 14px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s;
+}
+.form-create-user .ant-input:focus,
+.form-create-user .ant-input-textarea:focus,
+.form-create-user .ant-input-textarea textarea:focus,
+.form-update-user .ant-input:focus,
+.form-update-user .ant-input-textarea:focus,
+.form-update-user .ant-input-textarea textarea:focus {
+  outline: none;
+  border-color: #bde8f5;
+  box-shadow: 0 0 0 1px rgba(0, 183, 181, 0.4);
+  background-color: #f9ffff;
+}
+.form-create-user .ant-input::-moz-placeholder, .form-create-user .ant-input-textarea::-moz-placeholder, .form-create-user .ant-input-textarea textarea::-moz-placeholder, .form-update-user .ant-input::-moz-placeholder, .form-update-user .ant-input-textarea::-moz-placeholder, .form-update-user .ant-input-textarea textarea::-moz-placeholder {
+  color: #94a3b8;
+}
+.form-create-user .ant-input::placeholder,
+.form-create-user .ant-input-textarea::placeholder,
+.form-create-user .ant-input-textarea textarea::placeholder,
+.form-update-user .ant-input::placeholder,
+.form-update-user .ant-input-textarea::placeholder,
+.form-update-user .ant-input-textarea textarea::placeholder {
+  color: #94a3b8;
+}
+.form-create-user .ant-select,
+.form-update-user .ant-select {
+  width: 100%;
+}
+.form-create-user button,
+.form-update-user button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-family: "Roboto", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  background-color: #bde8f5 !important;
+  color: #1c4d8d;
+  box-shadow: 0 1px 2px rgba(255, 255, 255, 0.333);
+}
+.form-create-user button:disabled,
+.form-update-user button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.form-create-user button:hover,
+.form-update-user button:hover {
+  background-color: #1c4d8d !important;
+  color: #bde8f5;
+}

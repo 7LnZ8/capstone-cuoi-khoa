@@ -21,6 +21,8 @@ import ProtectedRoute from "./ProtectedRoute.jsx";
 import AdminRoute from "./AdminRoute.jsx";
 import CreateAccount from "../pages/admin/users/CreateAccount.jsx";
 import EnrollManager from "../pages/admin/enroll/EnrollManager.jsx";
+import UpdateAccount from "../pages/admin/users/UpdateAccount.jsx";
+// import UpdateAccount from "../pages/admin/users/UpdateAccount.jsx";
 
 export default function AppRouter() {
   const routes = useRoutes([
@@ -57,7 +59,7 @@ export default function AppRouter() {
               children: [
                 { index: true, element: <UserManager /> },
                 { path: "create", element: <CreateAccount /> },
-                { path: ":id/edit", element: <CreateAccount /> },
+                { path: ":id/edit", element: <UpdateAccount /> },
               ],
             },
 

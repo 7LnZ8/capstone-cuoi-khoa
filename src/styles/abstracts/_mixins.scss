@@ -45,6 +45,55 @@
   justify-content: space-between;
 }
 
+@mixin child-form-antd {
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: $sp-3;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+  }
+
+  // Input, TextArea
+  .ant-input,
+  .ant-input-textarea,
+  .ant-input-textarea textarea {
+    width: 100%;
+    @include input-base;
+  }
+
+  // Select
+  .ant-select {
+    width: 100%;
+  }
+
+  // DatePicker
+  .ant-picker {
+    width: 100%;
+  }
+
+  // Upload
+  .ant-upload {
+    width: 100%;
+    button {
+      @include btn-base;
+      @include btn-tone($blue-light, $blue-dark);
+    }
+  }
+
+  // nút submit
+  button {
+    @include btn-base;
+    @include btn-tone($blue-light, $blue-dark);
+  }
+}
+
 //BUTTON BASE
 @mixin btn-base {
   display: inline-flex;

@@ -1,4 +1,4 @@
-import { Button, DatePicker, Input, message, Select, Upload } from "antd";
+import { DatePicker, Input, message, Select, Upload } from "antd";
 import { useLocation } from "react-router-dom";
 import {
   groupOptions,
@@ -7,10 +7,9 @@ import {
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import dayjs from "dayjs";
-import { useEffect, useState } from "react";
 import { useAddCourse } from "../../../queries/course.queries.js";
 import { useGetCategoriesCode } from "../../../queries/category.queries.js";
-import { api } from "../../../services/api.js";
+import { useState } from "react";
 import { Spinner } from "react-bootstrap";
 
 const defaultValues = {
@@ -33,6 +32,7 @@ export default function CreateCourse() {
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(themKhoaHocSchema),
@@ -40,7 +40,7 @@ export default function CreateCourse() {
   });
 
   const addCourses = useAddCourse();
-  const { data, isPending, isError, error } = useGetCategoriesCode();
+  const { data, isPending, isError } = useGetCategoriesCode();
 
   const onSubmit = async (values) => {
     const payload = {
@@ -52,19 +52,21 @@ export default function CreateCourse() {
     try {
       const data = await addCourses.mutateAsync(payload);
       console.log("Form Data:", data);
-      message.success("Submit thành công!");
+      message.success("Thêm khóa học thành công!");
+      reset();
+      setFileList([]);
     } catch (err) {
       console.log("Lỗi tạo:", err);
     }
   };
 
-  // if (isPending)
-  //   return (
-  //     <div className="loading-text">
-  //       <Spinner></Spinner> Nội dung đang tải...
-  //     </div>
-  //   );
-  // if (isError) return <p>Lỗi: {String(error)}</p>;
+  if (isPending)
+    return (
+      <div className="loading-text">
+        <Spinner></Spinner> Nội dung đang tải...
+      </div>
+    );
+  if (isError) return <p>Lỗi: {String(isError)}</p>;
 
   return (
     <div className="form-course">
@@ -213,7 +215,8 @@ export default function CreateCourse() {
           )}
         </div>
 
-        <button type="submit">
+        <button type="submit" disabled={isPending}>
+          {isPending ? <Spinner></Spinner> : ""}
           {location.pathname === "/admin/courses/create"
             ? "Tạo Khóa Học"
             : "Cập Nhật Khóa Học"}

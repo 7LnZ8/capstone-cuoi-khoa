@@ -2,6 +2,7 @@
 import { Link, useMatch } from "react-router-dom";
 import Logo from "./Logo.jsx";
 import { Form, Input } from "antd";
+import { FaSearch } from "react-icons/fa";
 
 export default function Navbar() {
   const matchCourses = useMatch("/admin/courses/*");
@@ -38,7 +39,9 @@ export default function Navbar() {
                 className="form-control input-look"
                 placeholder="Tìm khóa học..."
               />
-              <button className="btn btn-look">Tìm</button>
+              <button className="btn btn-look">
+                <FaSearch />
+              </button>
             </Form>
           </div>
 

@@ -10,5 +10,8 @@ export const useGetCategoriesCode = () => {
       console.log("Lấy danh muc khóa học:", res.data);
       return res.data;
     },
+    staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
   });
 };
