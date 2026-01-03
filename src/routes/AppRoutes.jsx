@@ -1,5 +1,3 @@
-//Khai báo tất cả route của hệ thống
-import React from "react";
 import { Navigate, useRoutes } from "react-router-dom";
 
 // Layouts
@@ -16,13 +14,13 @@ import Register from "../pages/auth/Register";
 //Admin Pages
 import UserManager from "../pages/admin/users/UserManager";
 import CourseManager from "../pages/admin/courses/CourseManager";
-import CourseForm from "../pages/admin/courses/CourseForm";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import AdminRoute from "./AdminRoute.jsx";
 import CreateAccount from "../pages/admin/users/CreateAccount.jsx";
 import EnrollManager from "../pages/admin/enroll/EnrollManager.jsx";
 import UpdateAccount from "../pages/admin/users/UpdateAccount.jsx";
-// import UpdateAccount from "../pages/admin/users/UpdateAccount.jsx";
+import CreateCourse from "../pages/admin/courses/CreateCourse.jsx";
+import UpdateCourse from "../pages/admin/courses/UpdateCourse.jsx";
 
 export default function AppRouter() {
   const routes = useRoutes([
@@ -69,8 +67,8 @@ export default function AppRouter() {
               children: [
                 { index: true, element: <CourseManager /> },
 
-                { path: "create", element: <CourseForm /> },
-                { path: ":id/edit", element: <CourseForm /> },
+                { path: "create", element: <CreateCourse /> },
+                { path: ":id/edit", element: <UpdateCourse /> },
               ],
             },
 

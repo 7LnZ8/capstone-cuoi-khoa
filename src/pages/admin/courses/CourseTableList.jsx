@@ -5,8 +5,11 @@ import {
   DeleteOutlined,
   UploadOutlined,
 } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 
 const CourseTableList = React.memo(function CourseTableList({ data }) {
+  const navigate = useNavigate();
+
   const dataSource = (data || []).map((course, index) => ({
     key: index + 1,
     hinhAnh: course.hinhAnh,
@@ -80,7 +83,9 @@ const CourseTableList = React.memo(function CourseTableList({ data }) {
             <Button
               type="link"
               icon={<EditOutlined />}
-              onClick={() => console.log("Sửa", record)}
+              onClick={() =>
+                navigate(`/admin/courses/${record.tenKhoaHoc}/edit`)
+              }
             />
           </Tooltip>
           <Tooltip title="Xóa">

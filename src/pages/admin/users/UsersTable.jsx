@@ -30,7 +30,7 @@ const UsersTable = React.memo(function UsersTable({ data }) {
     });
   };
 
-  //Người dùng đã tạo khóa học và ghi danh không thể xóa
+  //Người dùng đã tạo khóa học và ghi danh không thể xóa, có thể test bằng tạo người dùng mới
 
   // Cột của bảng
   const columns = [
@@ -64,11 +64,13 @@ const UsersTable = React.memo(function UsersTable({ data }) {
       title: "Điện thoại",
       dataIndex: "soDT",
       width: 100,
+      align: "center",
     },
     {
       title: "Loại Người dùng",
       dataIndex: "maLoaiNguoiDung",
       width: 180,
+      align: "center",
     },
     {
       title: "Hành động",

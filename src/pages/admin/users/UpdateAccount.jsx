@@ -9,7 +9,7 @@ import { useNavigate, useParams } from "react-router-dom";
 export default function UpdateAccount() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { data, isPending, isError } = useGetUserInfo(id);
+  const { data } = useGetUserInfo(id);
   const updateUser = useUpdateUser();
 
   const userFromApi = data?.find((item) => item.taiKhoan === id);
