@@ -58,12 +58,3 @@ export default function Navbar() {
     </nav>
   );
 }
-
-// <button
-//         className="navbar-toggler"
-//         type="button"
-//         data-bs-toggle="collapse"
-//         data-bs-target="#mainNavbar"
-//       >
-//         <span className="navbar-toggler-icon"></span>
-//       </button>
