@@ -1,37 +1,25 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
+// src/main.jsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
+import { Provider } from 'react-redux';
+import { store } from './app/store.js'; // Import store vừa tạo ở bước 1
+import { BrowserRouter } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'; // Import React Query
+import './styles/style.scss'; // Import file css chính (nếu có)
+// Hoặc import 'antd/dist/reset.css'; nếu dùng antd v4, v5 tự động không cần
 
-//router
-import { BrowserRouter } from "react-router-dom";
-
-//css
-import "bootstrap/dist/css/bootstrap.min.css";
-import "antd/dist/reset.css";
-
-//redux
-import { Provider } from "react-redux";
-import { configureStore } from "@reduxjs/toolkit";
-
-//tanstack query
-import adminSlice from "./feature/admin/adminSlice.js";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
-import App from "./App.jsx";
-
+// Tạo client cho React Query
 const queryClient = new QueryClient();
 
-const reduxStore = configureStore({
-  reducer: {
-    adminSlice: adminSlice,
-  },
-});
-
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <BrowserRouter>
-    <Provider store={reduxStore}>
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <Provider store={store}>
       <QueryClientProvider client={queryClient}>
-        <App />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </QueryClientProvider>
     </Provider>
-  </BrowserRouter>
+  </React.StrictMode>,
 );
