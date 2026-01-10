@@ -1,31 +1,25 @@
-//State đăng nhập, user, role
 // src/feature/auth/authSlice.js
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  user: JSON.parse(localStorage.getItem("user")) || null, // Lấy từ local storage nếu có
-  isAuthenticated: !!localStorage.getItem("ACCESSTOKEN"),
+  user: JSON.parse(localStorage.getItem('user')) || null,
 };
 
 const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
     loginAction: (state, action) => {
-      // action.payload chứa thông tin user trả về từ API
       state.user = action.payload;
-      state.isAuthenticated = true;
-      localStorage.setItem("user", JSON.stringify(action.payload));
-      localStorage.setItem("ACCESSTOKEN", action.payload.accessToken);
+      localStorage.setItem('user', JSON.stringify(action.payload));
     },
     logoutAction: (state) => {
       state.user = null;
-      state.isAuthenticated = false;
-      localStorage.removeItem("user");
-      localStorage.removeItem("ACCESSTOKEN");
+      localStorage.removeItem('user');
+      localStorage.removeItem('ACCESSTOKEN');
     },
   },
 });
 
 export const { loginAction, logoutAction } = authSlice.actions;
-export default authSlice.reducer;
+export default authSlice.reducer; // Bắt buộc phải có dòng này
