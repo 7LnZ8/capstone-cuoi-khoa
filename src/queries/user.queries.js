@@ -60,3 +60,57 @@ export const useDeleteUser = () => {
     },
   });
 };
+// src/queries/user.queries.js
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { apiQLND, api } from "../services/api.js"; // Import đúng instance axios
+
+// --- HOOKS CHO CLIENT ---
+
+// 1. Hook Đăng nhập
+export const useLoginMutation = () => {
+  return useMutation({
+    mutationFn: async (formData) => {
+      const res = await apiQLND.post("DangNhap", formData);
+      return res.data;
+    },
+  });
+};
+
+// 2. Hook Đăng ký
+export const useRegisterMutation = () => {
+  return useMutation({
+    mutationFn: async (formData) => {
+      const res = await apiQLND.post("DangKy", formData);
+      return res.data;
+    },
+  });
+};
+
+// 3. Hook lấy thông tin chi tiết tài khoản (Profile + Khóa học đã đăng ký)
+export const useUserProfile = () => {
+  return useQuery({
+    queryKey: ["userProfile"],
+    queryFn: async () => {
+      const res = await apiQLND.post("ThongTinTaiKhoan");
+      return res.data;
+    },
+    // Chỉ gọi khi đã có token (người dùng đã đăng nhập)
+    enabled: !!localStorage.getItem("ACCESSTOKEN"), 
+  });
+};
+
+// 4. Hook Đăng ký khóa học
+export const useRegisterCourseMutation = () => {
+  return useMutation({
+    mutationFn: async (maKhoaHoc) => {
+      // API yêu cầu body là object { maKhoaHoc: "..." } hoặc tùy swagger
+      // Theo swagger file api.txt: endpoint DangKyKhoaHoc nhận body {maKhoaHoc, taiKhoan}
+      const user = JSON.parse(localStorage.getItem("user"));
+      const res = await api.post("DangKyKhoaHoc", {
+        maKhoaHoc: maKhoaHoc,
+        taiKhoan: user?.taiKhoan,
+      });
+      return res.data;
+    },
+  });
+};
