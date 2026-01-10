@@ -7,7 +7,11 @@ import {
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 
-const CourseTableList = React.memo(function CourseTableList({ data }) {
+const CourseTableList = React.memo(function CourseTableList({
+  data,
+  showModal,
+  imageVersion,
+}) {
   const navigate = useNavigate();
 
   const dataSource = (data || []).map((course, index) => ({
@@ -38,7 +42,7 @@ const CourseTableList = React.memo(function CourseTableList({ data }) {
         <Image
           width={60}
           height={40}
-          src={src}
+          src={`${src}?t=${imageVersion}`}
           // nếu ảnh lỗi thì dùng ảnh này
           fallback="/image.png"
           style={{ objectFit: "cover", borderRadius: 4 }}
@@ -100,7 +104,7 @@ const CourseTableList = React.memo(function CourseTableList({ data }) {
             <Button
               type="link"
               icon={<UploadOutlined />}
-              onClick={() => console.log("Upload ảnh", record)}
+              onClick={() => showModal(record.tenKhoaHoc)}
             />
           </Tooltip>
         </Space>

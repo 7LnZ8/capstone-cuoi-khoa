@@ -60,6 +60,23 @@ export const useUpdateCourse = () => {
   });
 };
 
+export const useImageCourse = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (payload) => {
+      const res = await api.post("UploadHinhAnhKhoaHoc", payload, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      return res.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["courses"]);
+    },
+  });
+};
+
 //Thêm tài khoản - Sẽ tách về user
 export const useAddUserDemo = () => {
   return useMutation({

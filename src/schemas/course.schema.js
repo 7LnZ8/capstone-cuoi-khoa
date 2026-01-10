@@ -39,3 +39,7 @@ export const themKhoaHocSchema = z.object({
     errorMap: () => ({ message: "Mã nhóm không hợp lệ" }),
   }),
 });
+
+// export const updateImageSchema = z.object({
+//   hinhAnh: z.string().nonempty("Hình ảnh không được để trống"),
+// });
