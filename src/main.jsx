@@ -7,6 +7,9 @@ import { store } from "./app/store.js"; // Import store vừa tạo ở bước 
 import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"; // Import React Query
 import "antd/dist/reset.css";
+//css - Đừng xóa
+import "bootstrap/dist/css/bootstrap.min.css";
+import "antd/dist/reset.css";
 
 // Tạo client cho React Query
 const queryClient = new QueryClient();
