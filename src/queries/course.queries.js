@@ -33,6 +33,22 @@ export const useFindCourseByName = (keyQuery) => {
   });
 };
 
+export const useSearchCourse = (keyQuery) => {
+  return useQuery({
+    queryKey: ["coursesFind", keyQuery],
+    queryFn: async () => {
+      const res = await api.get(`LayDanhSachKhoaHoc?tenKhoaHoc=${keyQuery}`);
+      console.log("Lấy danh sách khóa học theo tên:", res.data);
+      return res.data;
+    },
+    retry: 0,
+    enabled: !!keyQuery, //tránh gọi khi nó undefined
+    staleTime: 5 * 60 * 1000, //thời gian dự liệu được xem là mới và ko gọi lại api trong khoản tgian này
+    refetchOnWindowFocus: false, //không gọi lại api khi đổi tab
+    refetchOnReconnect: false, //đổi mạng ko tự động gọi api
+  });
+};
+
 //Thêm khóa học
 export const useAddCourse = () => {
   const queryClient = useQueryClient();
@@ -71,6 +87,17 @@ export const useImageCourse = () => {
       });
       return res.data;
     },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["courses"]);
+    },
+  });
+};
+
+export const useDeleteCourse = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (maKhoaHoc) =>
+      await api.delete(`XoaKhoaHoc?maKhoaHoc=${maKhoaHoc}`),
     onSuccess: () => {
       queryClient.invalidateQueries(["courses"]);
     },

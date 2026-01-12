@@ -40,6 +40,6 @@ export const themKhoaHocSchema = z.object({
   }),
 });
 
-// export const updateImageSchema = z.object({
-//   hinhAnh: z.string().nonempty("Hình ảnh không được để trống"),
-// });
+export const searchCourseSchema = z.object({
+  tenKhoaHoc: z.string().trim().min(1, "Vui lòng nhập thông tin!"),
+});

@@ -5,11 +5,14 @@ import {
   useCourses,
   useFindCourseByName,
   useImageCourse,
+  useSearchCourse,
 } from "../../../queries/course.queries.js";
 import { Spinner } from "react-bootstrap";
 import CourseTableList from "./CourseTableList.jsx";
-import { message, Modal, Upload } from "antd";
-import { useForm } from "react-hook-form";
+import { Input, message, Modal, Upload } from "antd";
+import { Controller, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { searchCourseSchema } from "../../../schemas/course.schema.js";
 
 const CourseManager = React.memo(function CourseManager() {
   const { data: listData, isPending, isError, error } = useCourses();
@@ -52,13 +55,11 @@ const CourseManager = React.memo(function CourseManager() {
   }, [courseFromApi?.hinhAnh]);
 
   const {
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    defaultValues: courseFromApi,
-  });
+    handleSubmit: handleUploadSubmit,
+    formState: { errors: uploadError },
+  } = useForm();
 
-  const onSubmit = async () => {
+  const onSubmitUpload = async () => {
     setIsModalOpen(false);
     if (!fileList.length || !fileList[0].originFileObj) {
       message.error("Vui lòng chọn ảnh");
@@ -76,10 +77,41 @@ const CourseManager = React.memo(function CourseManager() {
       message.success("Cập nhật ảnh thành công!");
       // navigate("/admin/courses");
     } catch (err) {
-      console.log("Lỗi tải ảnh:", err);
+      const backendMessage =
+        err?.response?.data?.message ||
+        err?.response?.data ||
+        "Cập nhật khóa học thất bại";
+      message.error(backendMessage);
     }
   };
+  ///////////////////
 
+  const [searchKey, setSearchKey] = useState("");
+
+  const { data: courseFound, isPending: isSearching } =
+    useSearchCourse(searchKey);
+
+  const filteredCourse = searchKey
+    ? courseFound?.filter((user) =>
+        user.tenKhoaHoc.toLowerCase().includes(searchKey.toLowerCase())
+      )
+    : courseFound;
+
+  const tableData =
+    searchKey && Array.isArray(filteredCourse) && filteredCourse.length > 0
+      ? filteredCourse
+      : listData;
+
+  const {
+    handleSubmit: handleSearchSubmit,
+    control,
+    formState: { errors: searchError },
+  } = useForm({
+    resolver: zodResolver(searchCourseSchema),
+    defaultValues: { tenKhoaHoc: "" },
+  });
+
+  ////////////////////
   if (isPending)
     return (
       <div className="loading-text">
@@ -91,8 +123,43 @@ const CourseManager = React.memo(function CourseManager() {
   return (
     <div className="course-table">
       <h3>DANH SÁCH KHÓA HỌC</h3>
+
+      <form
+        className="form-search"
+        onSubmit={handleSearchSubmit((values) => {
+          setSearchKey(values.tenKhoaHoc.trim());
+          console.log(values);
+        })}
+      >
+        <div>
+          <Controller
+            name="tenKhoaHoc"
+            control={control}
+            render={({ field }) => (
+              <Input {...field} placeholder="Tìm kiếm khóa học" />
+            )}
+          />
+        </div>
+        <button type="submit">Tìm kiếm</button>
+      </form>
+      {/* 1. Ưu tiên hiển thị lỗi Validation từ Zod trước */}
+      {searchError.tenKhoaHoc && (
+        <p className="search-not-found">{searchError.tenKhoaHoc.message}</p>
+      )}
+
+      {/* 2. Hiển thị Spinner khi đang thực hiện API search */}
+      {searchKey && isSearching && <Spinner />}
+
+      {/* 3. Hiển thị thông báo không tìm thấy kết quả */}
+      {searchKey &&
+        !isSearching &&
+        !searchError.tenKhoaHoc &&
+        (!filteredCourse || filteredCourse.length === 0) && (
+          <p className="search-not-found">Không tìm thấy khóa học phù hợp</p>
+        )}
+
       <CourseTableList
-        data={listData}
+        data={tableData ?? []}
         showModal={showModal}
         imageVersion={imageVersion}
       />
@@ -102,9 +169,9 @@ const CourseManager = React.memo(function CourseManager() {
         open={isModalOpen}
         onCancel={handleCancel}
         okText="Cập nhật"
-        onOk={handleSubmit(onSubmit)}
+        onOk={handleUploadSubmit(onSubmitUpload)}
       >
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleUploadSubmit(onSubmitUpload)}>
           <Upload
             listType="picture-card"
             fileList={fileList}
@@ -124,8 +191,8 @@ const CourseManager = React.memo(function CourseManager() {
             <button type="button">Chọn từ máy</button>
           </Upload>
 
-          {errors.hinhAnh && (
-            <p className="text-danger">{errors.hinhAnh.message}</p>
+          {uploadError.hinhAnh && (
+            <p className="text-danger">{uploadError.hinhAnh.message}</p>
           )}
         </form>
       </Modal>

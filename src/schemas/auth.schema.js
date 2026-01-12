@@ -42,7 +42,7 @@ export const createUserSchema = z.object({
   maNhom: z.string(),
 });
 
-//tìm kiếm người dùng
-export const searchTaiKhoanSchema = z.object({
-  taiKhoan: z.string().trim().min(1, "Vui lòng nhập tài khoản"),
+//tìm kiếm
+export const searchUserSchema = z.object({
+  taiKhoan: z.string().trim().min(1, "Vui lòng nhập thông tin tìm kiếm"),
 });

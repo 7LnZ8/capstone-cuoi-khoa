@@ -20,13 +20,16 @@ const UsersTable = React.memo(function UsersTable({ data }) {
 
   const handleDelete = (taiKhoan) => {
     console.log(taiKhoan);
-    const taiKhoanTrimmed = taiKhoan.trim();
-    deleteUser(taiKhoanTrimmed, {
+
+    deleteUser(taiKhoan, {
       onSuccess: () => message.success("Xóa người dùng thành công"),
-      onError: () =>
-        message.error(
-          "Xóa thất bại, có thể do người dùng đã tạo khóa học hoặc đã được ghi danh"
-        ),
+      onError: (error) => {
+        const backendMessage =
+          error?.response?.data?.message ||
+          error?.response?.data ||
+          "Xóa người dùng thất bại";
+        message.error(backendMessage);
+      },
     });
   };
 
@@ -82,26 +85,20 @@ const UsersTable = React.memo(function UsersTable({ data }) {
             <Button
               type="link"
               icon={<EditOutlined />}
-              onClick={() => navigate(`/admin/users/${record.taiKhoan}/edit`)}
+              onClick={() => {
+                navigate(
+                  `/admin/users/${encodeURIComponent(record.taiKhoan)}/edit`
+                );
+              }}
             />
           </Tooltip>
           <Tooltip title="Xóa">
-            <Popconfirm
-              title="Bạn có chắc muốn xóa người dùng này?"
-              onConfirm={() => {
-                handleDelete(record.taiKhoan);
-                console.log(record.taiKhoan);
-              }}
-              okText="Xóa"
-              cancelText="Hủy"
-            >
-              <Button
-                // type="link"
-                danger
-                icon={<DeleteOutlined />}
-                // onClick={() => console.log("Xóa", record)}
-              />
-            </Popconfirm>
+            <Button
+              type="link"
+              danger
+              icon={<DeleteOutlined />}
+              onClick={() => handleDelete(record.taiKhoan)}
+            />
           </Tooltip>
         </Space>
       ),

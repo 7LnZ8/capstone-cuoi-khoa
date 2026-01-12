@@ -1,11 +1,12 @@
 import React from "react";
-import { Table, Button, Image, Space, Tooltip } from "antd";
+import { Table, Button, Image, Space, Tooltip, message } from "antd";
 import {
   EditOutlined,
   DeleteOutlined,
   UploadOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import { useDeleteCourse } from "../../../queries/course.queries.js";
 
 const CourseTableList = React.memo(function CourseTableList({
   data,
@@ -26,6 +27,23 @@ const CourseTableList = React.memo(function CourseTableList({
       course.danhMucKhoaHoc ||
       "N/A",
   }));
+
+  const { mutate: deleteCourse, isLoading } = useDeleteCourse();
+
+  const handleDelete = (maKhoaHoc) => {
+    console.log(maKhoaHoc);
+    const taiKhoanTrimmed = maKhoaHoc.trim();
+    deleteCourse(taiKhoanTrimmed, {
+      onSuccess: () => message.success("Xóa khóa học thành công"),
+      onError: (error) => {
+        const backendMessage =
+          error?.response?.data?.message ||
+          error?.response?.data ||
+          "Xóa khóa học thất bại";
+        message.error(backendMessage);
+      },
+    });
+  };
 
   // Cột của bảng
   const columns = [
@@ -97,7 +115,7 @@ const CourseTableList = React.memo(function CourseTableList({
               type="link"
               danger
               icon={<DeleteOutlined />}
-              onClick={() => console.log("Xóa", record)}
+              onClick={() => handleDelete(record.maKhoaHoc)}
             />
           </Tooltip>
           <Tooltip title="Upload ảnh">

@@ -8,6 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 export default function UpdateAccount() {
   const { id } = useParams();
+  console.log(id);
   const navigate = useNavigate();
   const { data } = useGetUserInfo(id);
   const updateUser = useUpdateUser();

@@ -34,7 +34,7 @@ export const useUserProfile = () => {
       return res.data;
     },
     // Chỉ gọi khi đã có token (người dùng đã đăng nhập)
-    enabled: !!localStorage.getItem("ACCESSTOKEN"), 
+    enabled: !!localStorage.getItem("ACCESSTOKEN"),
     staleTime: 5 * 60 * 1000,
   });
 };
@@ -53,7 +53,6 @@ export const useRegisterCourseMutation = () => {
     },
   });
 };
-
 
 // =======================================================
 // PHẦN 2: ADMIN HOOKS (Code cũ của dự án - Đừng xóa)
@@ -79,7 +78,9 @@ export const useGetUserInfo = (keyQuery) => {
   return useQuery({
     queryKey: ["usersSearch", keyQuery],
     queryFn: async () => {
-      const res = await apiQLND.get(`TimKiemNguoiDung?tuKhoa=${keyQuery}`);
+      const res = await apiQLND.get(
+        `TimKiemNguoiDung?tuKhoa=${encodeURIComponent(keyQuery)}`
+      );
       console.log("Tìm kiếm người dùng", res.data);
       return res.data;
     },

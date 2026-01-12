@@ -7,7 +7,7 @@ import { Spinner } from "react-bootstrap";
 import UsersTable from "./UsersTable.jsx";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { searchTaiKhoanSchema } from "../../../schemas/auth.schema.js";
+import { searchUserSchema } from "../../../schemas/auth.schema.js";
 
 import { Input } from "antd";
 
@@ -33,7 +33,7 @@ export default function UserManager() {
     control,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(searchTaiKhoanSchema),
+    resolver: zodResolver(searchUserSchema),
     defaultValues: { taiKhoan: "" },
   });
 

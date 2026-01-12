@@ -4,9 +4,13 @@ import { FaBookOpen, FaPlus, FaUsers } from "react-icons/fa";
 export default function SideBar() {
   const matchCourses = useMatch("/admin/courses/*");
   const matchCreateCrouse = useMatch("/admin/courses/:id/edit");
+  const courseId = matchCreateCrouse?.params.id;
 
   const matchUsers = useMatch("/admin/users/*");
   const matchCreateUsers = useMatch("/admin/users/:id/edit");
+
+  //dùng useMatch thì thấy id trong đấy luôn để tránh khác nhau khi có kí tự đặc biệt
+  const userId = matchCreateUsers?.params.id;
 
   return (
     <div className="side-bar">
@@ -31,7 +35,7 @@ export default function SideBar() {
           </NavLink>
           {matchCreateCrouse && (
             <NavLink
-              to={`/admin/courses/${matchCreateCrouse.params.id}/edit`}
+              to={`/admin/courses/${encodeURIComponent(courseId)}/edit`}
               className={({ isActive }) =>
                 `link-route ${isActive ? "active-sidebar" : ""}`
               }
@@ -62,7 +66,7 @@ export default function SideBar() {
           </NavLink>
           {matchCreateUsers && (
             <NavLink
-              to={`/admin/users/${matchCreateUsers.params.id}/edit`}
+              to={`/admin/users/${encodeURIComponent(userId)}/edit`}
               className={({ isActive }) =>
                 `link-route ${isActive ? "active-sidebar" : ""}`
               }
