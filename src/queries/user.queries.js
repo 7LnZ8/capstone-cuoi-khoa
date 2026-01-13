@@ -1,21 +1,22 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiQLND, api } from "../services/api.js";
+import { message } from "antd";
 
 // =======================================================
-// PHẦN 1: CLIENT HOOKS (Dành cho User)
+// PHẦN 1: CLIENT HOOKS (Dành cho User - Login/Register/Profile)
 // =======================================================
 
-// 1. Hook Đăng nhập
+// 1. Đăng nhập
 export const useLoginMutation = () => {
   return useMutation({
     mutationFn: async (formData) => {
       const res = await apiQLND.post("DangNhap", formData);
-      return res.data; // Trả về data user
+      return res.data;
     },
   });
 };
 
-// 2. Hook Đăng ký
+// 2. Đăng ký
 export const useRegisterMutation = () => {
   return useMutation({
     mutationFn: async (formData) => {
@@ -25,7 +26,7 @@ export const useRegisterMutation = () => {
   });
 };
 
-// 3. Hook Lấy thông tin chi tiết (Profile + Khóa học đã ghi danh)
+// 3. Lấy thông tin chi tiết (Profile + Khóa học đã ghi danh)
 export const useUserProfile = () => {
   return useQuery({
     queryKey: ["userProfile"],
@@ -33,39 +34,69 @@ export const useUserProfile = () => {
       const res = await apiQLND.post("ThongTinTaiKhoan");
       return res.data;
     },
-    // Chỉ gọi API khi có Token trong localStorage
+    // Chỉ gọi API khi đã có token
     enabled: !!localStorage.getItem("ACCESSTOKEN"),
-    staleTime: 5 * 60 * 1000, 
+    staleTime: 0, // Luôn lấy dữ liệu mới nhất khi vào trang
   });
 };
 
-// 4. Hook Đăng ký khóa học
-export const useRegisterCourseMutation = () => {
+// 4. Cập nhật thông tin cá nhân (⚠️ QUAN TRỌNG: Hàm này đang thiếu gây lỗi)
+export const useUpdateProfileMutation = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (maKhoaHoc) => {
-      // Lấy tài khoản từ localStorage (lưu lúc login)
-      const user = JSON.parse(localStorage.getItem("USER_LOGIN") || localStorage.getItem("user"));
-      
-      if (!user || !user.taiKhoan) {
-        throw new Error("Vui lòng đăng nhập để đăng ký khóa học");
-      }
-
-      const res = await api.post("DangKyKhoaHoc", {
-        maKhoaHoc: maKhoaHoc,
-        taiKhoan: user.taiKhoan,
-      });
+    mutationFn: async (payload) => {
+      const res = await apiQLND.put("CapNhatThongTinNguoiDung", payload);
       return res.data;
     },
     onSuccess: () => {
-      // Refresh lại profile để cập nhật danh sách khóa học vừa đăng ký
-      queryClient.invalidateQueries(["userProfile"]); 
+      message.success("Cập nhật thông tin thành công!");
+      queryClient.invalidateQueries(["userProfile"]); // Làm mới dữ liệu profile
+    },
+    onError: (err) => {
+      message.error(err.response?.data || "Cập nhật thất bại!");
+    }
+  });
+};
+
+// 5. Hủy đăng ký khóa học (⚠️ QUAN TRỌNG: Hàm này đang thiếu gây lỗi)
+export const useCancelCourseMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (payload) => {
+      // payload: { maKhoaHoc, taiKhoan }
+      const res = await api.post("HuyGhiDanh", payload);
+      return res.data;
+    },
+    onSuccess: (data) => {
+      message.success(typeof data === 'string' ? data : "Hủy đăng ký thành công!");
+      queryClient.invalidateQueries(["userProfile"]); // Làm mới danh sách khóa học
+    },
+    onError: (err) => {
+      message.error(err.response?.data || "Hủy đăng ký thất bại!");
+    }
+  });
+};
+
+// 6. Đăng ký khóa học (Dùng cho trang Chi tiết khóa học)
+export const useRegisterCourseMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data) => {
+      const res = await api.post("DangKyKhoaHoc", data);
+      return res.data;
+    },
+    onSuccess: () => {
+      message.success("Đăng ký khóa học thành công!");
+      queryClient.invalidateQueries(["userProfile"]);
+    },
+    onError: (err) => {
+      message.error(err.response?.data || "Đăng ký thất bại!");
     }
   });
 };
 
 // =======================================================
-// PHẦN 2: ADMIN HOOKS (Dành cho Quản trị viên)
+// PHẦN 2: ADMIN HOOKS (Dành cho trang Admin)
 // =======================================================
 
 // Lấy danh sách người dùng
@@ -94,7 +125,7 @@ export const useGetUserInfo = (keyQuery) => {
   });
 };
 
-// Cập nhật người dùng
+// Cập nhật người dùng (Admin)
 export const useUpdateUser = () => {
   const queryClient = useQueryClient();
   return useMutation({
