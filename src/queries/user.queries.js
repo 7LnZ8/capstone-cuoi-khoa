@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiQLND, api } from "../services/api.js";
 
 // =======================================================
-// PHẦN 1: CLIENT HOOKS (Code của bạn - Dùng cho User/Auth)
+// PHẦN 1: CLIENT HOOKS (Dành cho User)
 // =======================================================
 
 // 1. Hook Đăng nhập
@@ -10,7 +10,7 @@ export const useLoginMutation = () => {
   return useMutation({
     mutationFn: async (formData) => {
       const res = await apiQLND.post("DangNhap", formData);
-      return res.data;
+      return res.data; // Trả về data user
     },
   });
 };
@@ -25,7 +25,7 @@ export const useRegisterMutation = () => {
   });
 };
 
-// 3. Hook lấy thông tin chi tiết tài khoản (Profile + Khóa học đã đăng ký)
+// 3. Hook Lấy thông tin chi tiết (Profile + Khóa học đã ghi danh)
 export const useUserProfile = () => {
   return useQuery({
     queryKey: ["userProfile"],
@@ -33,47 +33,54 @@ export const useUserProfile = () => {
       const res = await apiQLND.post("ThongTinTaiKhoan");
       return res.data;
     },
-    // Chỉ gọi khi đã có token (người dùng đã đăng nhập)
+    // Chỉ gọi API khi có Token trong localStorage
     enabled: !!localStorage.getItem("ACCESSTOKEN"),
-    staleTime: 5 * 60 * 1000,
+    staleTime: 5 * 60 * 1000, 
   });
 };
 
 // 4. Hook Đăng ký khóa học
 export const useRegisterCourseMutation = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (maKhoaHoc) => {
-      const user = JSON.parse(localStorage.getItem("user"));
-      // Gọi API đăng ký
+      // Lấy tài khoản từ localStorage (lưu lúc login)
+      const user = JSON.parse(localStorage.getItem("USER_LOGIN") || localStorage.getItem("user"));
+      
+      if (!user || !user.taiKhoan) {
+        throw new Error("Vui lòng đăng nhập để đăng ký khóa học");
+      }
+
       const res = await api.post("DangKyKhoaHoc", {
         maKhoaHoc: maKhoaHoc,
-        taiKhoan: user?.taiKhoan,
+        taiKhoan: user.taiKhoan,
       });
       return res.data;
     },
+    onSuccess: () => {
+      // Refresh lại profile để cập nhật danh sách khóa học vừa đăng ký
+      queryClient.invalidateQueries(["userProfile"]); 
+    }
   });
 };
 
 // =======================================================
-// PHẦN 2: ADMIN HOOKS (Code cũ của dự án - Đừng xóa)
+// PHẦN 2: ADMIN HOOKS (Dành cho Quản trị viên)
 // =======================================================
 
-// Lấy danh sách người dùng (Admin)
+// Lấy danh sách người dùng
 export const useGetUsersList = () => {
   return useQuery({
     queryKey: ["usersList"],
     queryFn: async () => {
       const res = await apiQLND.get("LayDanhSachNguoiDung");
-      console.log("Lấy danh sách người dùng", res.data);
       return res.data;
     },
     staleTime: 5 * 60 * 1000,
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
   });
 };
 
-// Tìm kiếm người dùng (Admin)
+// Tìm kiếm người dùng
 export const useGetUserInfo = (keyQuery) => {
   return useQuery({
     queryKey: ["usersSearch", keyQuery],
@@ -81,17 +88,13 @@ export const useGetUserInfo = (keyQuery) => {
       const res = await apiQLND.get(
         `TimKiemNguoiDung?tuKhoa=${encodeURIComponent(keyQuery)}`
       );
-      console.log("Tìm kiếm người dùng", res.data);
       return res.data;
     },
     enabled: !!keyQuery,
-    staleTime: 5 * 60 * 1000,
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
   });
 };
 
-// Cập nhật thông tin người dùng (Admin)
+// Cập nhật người dùng
 export const useUpdateUser = () => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -105,7 +108,7 @@ export const useUpdateUser = () => {
   });
 };
 
-// Xóa người dùng (Admin)
+// Xóa người dùng
 export const useDeleteUser = () => {
   const queryClient = useQueryClient();
   return useMutation({

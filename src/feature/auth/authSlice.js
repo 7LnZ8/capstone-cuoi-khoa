@@ -1,8 +1,17 @@
 // src/feature/auth/authSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
+// Lấy dữ liệu từ LocalStorage khi app khởi động lại
+const safeParse = (key) => {
+    try {
+        return JSON.parse(localStorage.getItem(key));
+    } catch (e) {
+        return null;
+    }
+};
+
 const initialState = {
-  user: JSON.parse(localStorage.getItem("user")) || null,
+  user: safeParse("USER_LOGIN") || null,
 };
 
 const authSlice = createSlice({
@@ -10,17 +19,20 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     loginAction: (state, action) => {
-      state.user = action.payload;
-      localStorage.setItem("user", JSON.stringify(action.payload));
-      localStorage.setItem("ACCESSTOKEN", action.payload.accessToken);
+      const userInfo = action.payload;
+      state.user = userInfo;
+      // Lưu vào LocalStorage
+      localStorage.setItem("USER_LOGIN", JSON.stringify(userInfo));
+      localStorage.setItem("ACCESSTOKEN", userInfo.accessToken);
     },
     logoutAction: (state) => {
       state.user = null;
-      localStorage.removeItem("user");
+      // Xóa khỏi LocalStorage
+      localStorage.removeItem("USER_LOGIN");
       localStorage.removeItem("ACCESSTOKEN");
     },
   },
 });
 
 export const { loginAction, logoutAction } = authSlice.actions;
-export default authSlice.reducer; // Bắt buộc phải có dòng này
+export default authSlice.reducer;

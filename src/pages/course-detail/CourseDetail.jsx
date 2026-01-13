@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useGetCourseDetail } from "../../queries/category.queries.js";
-import { useRegisterCourseMutation } from "../../queries/user.queries.js";
+import { useRegisterCourseMutation } from '../../queries/enroll.queries';
 import { Button, message, Spin } from "antd";
 import { useSelector } from "react-redux";
 

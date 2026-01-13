@@ -1,100 +1,94 @@
-import { Navigate, useRoutes } from "react-router-dom";
+import React from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
-// Layouts
-import HomeLayout from "../layouts/HomeLayout/HomeLayout";
-import AdminLayout from "../layouts/AdminLayout/AdminLayout";
+// --- LAYOUTS ---
+import HomeLayout from '../layouts/HomeLayout/HomeLayout';
+import AdminLayout from '../layouts/AdminLayout/AdminLayout';
 
-// User Pages
-import Home from "../pages/home/Home";
-import CourseDetail from "../pages/course-detail/CourseDetail";
-import Profile from "../pages/profile/Profile";
-import Login from "../pages/auth/Login";
-import Register from "../pages/auth/Register";
+// --- PAGES: HOME & USER ---
+import Home from '../pages/home/Home';
+import Login from '../pages/auth/Login';
+import Register from '../pages/auth/Register';
+import CourseDetail from '../pages/course-detail/CourseDetail';
+import CategoryList from '../pages/category/CategoryList'; // Danh mục khóa học
+import CategoryCourses from '../pages/category/CategoryCourses'; // Khóa học theo danh mục
+import Profile from '../pages/profile/Profile';
 
-//Admin Pages
-import UserManager from "../pages/admin/users/UserManager";
-import CourseManager from "../pages/admin/courses/CourseManager";
-import ProtectedRoute from "./ProtectedRoute.jsx";
-import AdminRoute from "./AdminRoute.jsx";
-import CreateAccount from "../pages/admin/users/CreateAccount.jsx";
-import EnrollManager from "../pages/admin/enroll/EnrollManager.jsx";
-import UpdateAccount from "../pages/admin/users/UpdateAccount.jsx";
-import CreateCourse from "../pages/admin/courses/CreateCourse.jsx";
-import UpdateCourse from "../pages/admin/courses/UpdateCourse.jsx";
-import EnrollUser from "../pages/admin/enroll/userEnroll/ManageUserEnroll.jsx";
-import EnrollCourse from "../pages/admin/enroll/courseEnroll/EnrollCourse.jsx";
-import ManageUserEnroll from "../pages/admin/enroll/userEnroll/ManageUserEnroll.jsx";
+// --- PAGES: ADMIN ---
+import CourseManager from '../pages/admin/courses/CourseManager';
+import CreateCourse from '../pages/admin/courses/CreateCourse';
+import UpdateCourse from '../pages/admin/courses/UpdateCourse';
+import UserManager from '../pages/admin/users/UserManager';
+import CreateAccount from '../pages/admin/users/CreateAccount';
+import UpdateAccount from '../pages/admin/users/UpdateAccount';
+import EnrollManager from '../pages/admin/enroll/EnrollManager';
 
-export default function AppRouter() {
-  const routes = useRoutes([
-    // PUBLIC
-    {
-      path: "/",
-      element: <HomeLayout />,
-      children: [
-        { index: true, element: <Home /> },
-        { path: "login", element: <Login /> },
-        { path: "register", element: <Register /> },
-        { path: "courses/:id", element: <CourseDetail /> },
+// --- GUARDS (Bảo vệ Route) ---
+import AdminRoute from './AdminRoute';
+import ProtectedRoute from './ProtectedRoute';
 
-        {
-          element: <ProtectedRoute />, //Vào file này xem ghi chú
-          children: [{ path: "profile", element: <Profile /> }],
-        },
-      ],
-    },
+const AppRoutes = () => {
+  return (
+    <Routes>
+      {/* =========================================================
+          1. HOME LAYOUT (Khách & Học viên)
+          ========================================================= */}
+      <Route path="/" element={<HomeLayout />}>
+        {/* Trang chủ */}
+        <Route index element={<Home />} />
+        
+        {/* Danh sách khóa học & Chi tiết */}
+        <Route path="danh-muc-khoa-hoc" element={<CategoryList />} />
+        <Route path="danh-muc/:maDanhMuc" element={<CategoryCourses />} />
+        <Route path="khoa-hoc/:maKhoaHoc" element={<CourseDetail />} />
 
-    // ADMIN
-    {
-      path: "/admin",
-      element: <AdminLayout />,
-      children: [
-        {
-          element: <AdminRoute />, //Vào file này xem ghi chú
-          children: [
-            { index: true, element: <Navigate to="courses" replace /> },
+        {/* Trang cá nhân (Cần đăng nhập mới xem được) */}
+        <Route element={<ProtectedRoute />}>
+           <Route path="profile" element={<Profile />} />
+        </Route>
+      </Route>
 
-            {
-              //user manage
-              path: "users",
-              children: [
-                { index: true, element: <UserManager /> },
-                { path: "create", element: <CreateAccount /> },
-                { path: ":id/edit", element: <UpdateAccount /> },
-              ],
-            },
+      {/* =========================================================
+          2. AUTH (Đăng nhập / Đăng ký - Không có Layout hoặc Layout riêng)
+          ========================================================= */}
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
 
-            // Courses
-            {
-              path: "courses",
-              children: [
-                { index: true, element: <CourseManager /> },
+      {/* =========================================================
+          3. ADMIN LAYOUT (Chỉ dành cho Quản trị viên)
+          ========================================================= */}
+      <Route 
+        path="/admin" 
+        element={
+          <AdminRoute>
+            <AdminLayout />
+          </AdminRoute>
+        }
+      >
+        {/* Redirect /admin -> /admin/courses */}
+        <Route index element={<Navigate to="courses" replace />} />
 
-                { path: "create", element: <CreateCourse /> },
-                { path: ":id/edit", element: <UpdateCourse /> },
-              ],
-            },
+        {/* Quản lý Khóa học */}
+        <Route path="courses" element={<CourseManager />} />
+        <Route path="courses/add" element={<CreateCourse />} />
+        <Route path="courses/edit/:id" element={<UpdateCourse />} />
 
-            {
-              path: "enroll",
-              children: [
-                { index: true, element: <EnrollManager /> },
-                { path: "user/:id", element: <ManageUserEnroll /> },
-                { path: "course/:id", element: <EnrollCourse /> },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+        {/* Quản lý Người dùng */}
+        <Route path="users" element={<UserManager />} />
+        <Route path="users/add" element={<CreateAccount />} />
+        <Route path="users/edit/:taiKhoan" element={<UpdateAccount />} />
 
-    {
-      path: "*",
-      element: (
-        <div style={{ textAlign: "center", marginTop: 50 }}>404 Not Found</div>
-      ),
-    },
-  ]);
+        {/* Quản lý Ghi danh */}
+        <Route path="enrollment" element={<EnrollManager />} />
+      </Route>
 
-  return routes;
-}
+      {/* =========================================================
+          4. NOT FOUND (404)
+          ========================================================= */}
+      <Route path="*" element={<div className="text-center mt-10">Trang không tồn tại (404)</div>} />
+
+    </Routes>
+  );
+};
+
+export default AppRoutes;

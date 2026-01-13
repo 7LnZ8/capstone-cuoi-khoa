@@ -1,1 +1,5 @@
-/*# sourceMappingURL=HomeLayout.css.map */
+@media (max-width: 768px) {
+  .hidden-mobile {
+    display: none !important;
+  }
+}
