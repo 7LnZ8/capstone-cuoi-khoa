@@ -1,6 +1,10 @@
 import React from "react";
 import { Table, Button, Space, Tooltip, Popconfirm, message } from "antd";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import {
+  EditOutlined,
+  DeleteOutlined,
+  UsergroupAddOutlined,
+} from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useDeleteUser } from "../../../queries/user.queries.js";
 
@@ -81,7 +85,7 @@ const UsersTable = React.memo(function UsersTable({ data }) {
       align: "center",
       render: (_, record) => (
         <Space>
-          <Tooltip title="Sửa">
+          <Tooltip title="Chỉnh sửa">
             <Button
               type="link"
               icon={<EditOutlined />}
@@ -92,7 +96,18 @@ const UsersTable = React.memo(function UsersTable({ data }) {
               }}
             />
           </Tooltip>
-          <Tooltip title="Xóa">
+          <Tooltip title="Kiểm tra ghi danh">
+            <Button
+              type="link"
+              icon={<UsergroupAddOutlined />}
+              onClick={() =>
+                navigate(
+                  `/admin/enroll/user/${encodeURIComponent(record.taiKhoan)}`
+                )
+              }
+            />
+          </Tooltip>
+          <Tooltip title="Xóa người dùng">
             <Button
               type="link"
               danger

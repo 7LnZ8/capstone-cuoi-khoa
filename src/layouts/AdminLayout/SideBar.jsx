@@ -1,6 +1,16 @@
 import React from "react";
 import { NavLink, useMatch } from "react-router-dom";
-import { FaBookOpen, FaPlus, FaUsers } from "react-icons/fa";
+import {
+  FaListUl,
+  FaPlusCircle,
+  FaPenNib,
+  FaUsers,
+  FaUserPlus,
+  FaUserEdit,
+  FaRegAddressCard,
+  FaBookMedical,
+  FaUserCheck,
+} from "react-icons/fa";
 export default function SideBar() {
   const matchCourses = useMatch("/admin/courses/*");
   const matchCreateCrouse = useMatch("/admin/courses/:id/edit");
@@ -8,9 +18,15 @@ export default function SideBar() {
 
   const matchUsers = useMatch("/admin/users/*");
   const matchCreateUsers = useMatch("/admin/users/:id/edit");
+  const userId = matchCreateUsers?.params.id;
+
+  const matchEnrolls = useMatch("/admin/enroll/*");
+  const matchEnrollUsers = useMatch("/admin/enroll/user/:id");
+  const matchEnrollCourses = useMatch("/admin/enroll/course/:id");
 
   //dùng useMatch thì thấy id trong đấy luôn để tránh khác nhau khi có kí tự đặc biệt
-  const userId = matchCreateUsers?.params.id;
+  const enrollUserId = matchEnrollUsers?.params.id;
+  const enrollCourseId = matchEnrollCourses?.params.id;
 
   return (
     <div className="side-bar">
@@ -23,7 +39,7 @@ export default function SideBar() {
               `link-route ${isActive ? "active-sidebar" : ""}`
             }
           >
-            <FaBookOpen /> Danh sách Khóa Học
+            <FaListUl /> Danh sách Khóa Học
           </NavLink>
           <NavLink
             to="/admin/courses/create"
@@ -31,7 +47,7 @@ export default function SideBar() {
               `link-route ${isActive ? "active-sidebar" : ""}`
             }
           >
-            <FaPlus /> Thêm Khóa Học
+            <FaPlusCircle /> Thêm Khóa Học
           </NavLink>
           {matchCreateCrouse && (
             <NavLink
@@ -40,7 +56,7 @@ export default function SideBar() {
                 `link-route ${isActive ? "active-sidebar" : ""}`
               }
             >
-              <FaPlus /> Cập nhật khóa học
+              <FaPenNib /> Cập nhật khóa học
             </NavLink>
           )}
         </div>
@@ -62,7 +78,7 @@ export default function SideBar() {
               `link-route ${isActive ? "active-sidebar" : ""}`
             }
           >
-            <FaPlus /> Thêm Người Dùng
+            <FaUserPlus /> Thêm Người Dùng
           </NavLink>
           {matchCreateUsers && (
             <NavLink
@@ -71,7 +87,41 @@ export default function SideBar() {
                 `link-route ${isActive ? "active-sidebar" : ""}`
               }
             >
-              <FaPlus /> Cập nhật người dùng
+              <FaUserEdit /> Cập nhật người dùng
+            </NavLink>
+          )}
+        </div>
+      )}
+
+      {matchEnrolls && (
+        <div>
+          <NavLink
+            to="/admin/enroll"
+            end
+            className={({ isActive }) =>
+              `link-route ${isActive ? "active-sidebar" : ""}`
+            }
+          >
+            <FaRegAddressCard /> Quản Lý Ghi Danh
+          </NavLink>
+          {matchEnrollCourses && (
+            <NavLink
+              to={`/admin/enroll/course/${encodeURIComponent(enrollCourseId)}`}
+              className={({ isActive }) =>
+                `link-route ${isActive ? "active-sidebar" : ""}`
+              }
+            >
+              <FaBookMedical /> Ghi Danh Khóa Học
+            </NavLink>
+          )}
+          {matchEnrollUsers && (
+            <NavLink
+              to={`/admin/enroll/user/${encodeURIComponent(enrollUserId)}`}
+              className={({ isActive }) =>
+                `link-route ${isActive ? "active-sidebar" : ""}`
+              }
+            >
+              <FaUserCheck /> Ghi Danh Người Dùng
             </NavLink>
           )}
         </div>

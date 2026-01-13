@@ -4,6 +4,7 @@ import {
   EditOutlined,
   DeleteOutlined,
   UploadOutlined,
+  AuditOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useDeleteCourse } from "../../../queries/course.queries.js";
@@ -101,7 +102,7 @@ const CourseTableList = React.memo(function CourseTableList({
       align: "center",
       render: (_, record) => (
         <Space>
-          <Tooltip title="Sửa">
+          <Tooltip title="Chỉnh sửa">
             <Button
               type="link"
               icon={<EditOutlined />}
@@ -110,19 +111,26 @@ const CourseTableList = React.memo(function CourseTableList({
               }
             />
           </Tooltip>
-          <Tooltip title="Xóa">
+          <Tooltip title="Tải ảnh lên">
+            <Button
+              type="link"
+              icon={<UploadOutlined />}
+              onClick={() => showModal(record.tenKhoaHoc)}
+            />
+          </Tooltip>
+          <Tooltip title="Kiểm tra ghi danh khóa học">
+            <Button
+              type="link"
+              icon={<AuditOutlined />}
+              onClick={() => console.log(record.tenKhoaHoc)}
+            />
+          </Tooltip>
+          <Tooltip title="Xóa khóa học">
             <Button
               type="link"
               danger
               icon={<DeleteOutlined />}
               onClick={() => handleDelete(record.maKhoaHoc)}
-            />
-          </Tooltip>
-          <Tooltip title="Upload ảnh">
-            <Button
-              type="link"
-              icon={<UploadOutlined />}
-              onClick={() => showModal(record.tenKhoaHoc)}
             />
           </Tooltip>
         </Space>
