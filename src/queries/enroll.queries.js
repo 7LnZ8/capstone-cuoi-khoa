@@ -1,9 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
-import { apiQLND } from "../services/api.js";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { api, apiQLND } from "../services/api.js";
 
+//------------- THEO BƯỜI DÙNG
+//Danh sách chưa ghi danh khóa học
 export const useGetCourseNotRegisterByUser = (keyQuery) => {
   return useQuery({
-    queryKey: ["useGetCourseNotRegister", keyQuery],
+    queryKey: ["useGetCourseNotRegister", "usersList", keyQuery],
     queryFn: async () => {
       const res = await apiQLND.post(
         `LayDanhSachKhoaHocChuaGhiDanh?TaiKhoan=${encodeURIComponent(keyQuery)}`
@@ -18,9 +20,10 @@ export const useGetCourseNotRegisterByUser = (keyQuery) => {
   });
 };
 
+//Danh sách đã ghi danh khóa học
 export const useGetCourseWasRegisterByUser = (keyQuery) => {
   return useQuery({
-    queryKey: ["useGetCourseWasRegister", keyQuery],
+    queryKey: ["useGetCourseWasRegister", "usersList", keyQuery],
     queryFn: async () => {
       const res = await apiQLND.post("LayDanhSachKhoaHocDaXetDuyet", {
         taiKhoan: keyQuery,
@@ -35,9 +38,10 @@ export const useGetCourseWasRegisterByUser = (keyQuery) => {
   });
 };
 
+//Danh sách chờ duyệt ghi danh khóa học
 export const useGetCoursePendingByUser = (keyQuery) => {
   return useQuery({
-    queryKey: ["useGetCoursePending", keyQuery],
+    queryKey: ["useGetCoursePending", "usersList", keyQuery],
     queryFn: async () => {
       const res = await apiQLND.post("LayDanhSachKhoaHocChoXetDuyet", {
         taiKhoan: keyQuery,
@@ -49,5 +53,32 @@ export const useGetCoursePendingByUser = (keyQuery) => {
     staleTime: 5 * 60 * 1000,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
+  });
+};
+
+//Ghi danh khóa học theo id
+export const useAddCourseById = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (payload) => {
+      const res = await api.post("GhiDanhKhoaHoc", payload);
+      return res.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["usersList"]);
+    },
+  });
+};
+
+export const useDeleteCourseById = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (payload) => {
+      const res = await api.post("HuyGhiDanh", payload);
+      return res.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["usersList"]);
+    },
   });
 };

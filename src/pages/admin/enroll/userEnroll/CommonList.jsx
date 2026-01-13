@@ -1,7 +1,7 @@
 import React from "react";
-import { List, Typography } from "antd";
+import { List } from "antd";
 
-export default function CommonList({ data, action }) {
+export default function CommonList({ data, action, funtionHanle, id }) {
   const listNotRegiste = (data || []).map((item, index) => ({
     key: index,
     content: {
@@ -31,9 +31,29 @@ export default function CommonList({ data, action }) {
               </div>
 
               {action == "remove" ? (
-                <button className="btn-enroll-list">Xóa khỏi khóa học</button>
+                <button
+                  className="btn-enroll-list"
+                  onClick={() => {
+                    funtionHanle({
+                      maKhoaHoc: item.content.maKhoaHoc,
+                      taiKhoan: id,
+                    });
+                  }}
+                >
+                  Xóa khỏi khóa học
+                </button>
               ) : (
-                <button className="btn-enroll-list">Đăng ký khóa học</button>
+                <button
+                  className="btn-enroll-list"
+                  onClick={() => {
+                    funtionHanle({
+                      maKhoaHoc: item.content.maKhoaHoc,
+                      taiKhoan: id,
+                    });
+                  }}
+                >
+                  Đăng ký khóa học
+                </button>
               )}
             </List.Item>
           )}

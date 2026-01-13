@@ -1,10 +1,30 @@
 import CommonList from "./CommonList.jsx";
-import { useGetCourseWasRegisterByUser } from "../../../../queries/enroll.queries.js";
+import {
+  useDeleteCourseById,
+  useGetCourseWasRegisterByUser,
+} from "../../../../queries/enroll.queries.js";
 
 const DoneEnrollCourse = ({ id, action }) => {
   const { data } = useGetCourseWasRegisterByUser(id);
+  const addCourse = useDeleteCourseById();
 
-  return <CommonList data={data} action={action} />;
+  const removeCourseById = async (payload) => {
+    try {
+      const data = await addCourse.mutateAsync(payload);
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  return (
+    <CommonList
+      data={data}
+      action={action}
+      funtionHanle={removeCourseById}
+      id={id}
+    />
+  );
 };
 
 export default DoneEnrollCourse;
