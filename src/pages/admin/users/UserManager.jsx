@@ -23,7 +23,10 @@ export default function UserManager() {
       )
     : userFound;
 
-  const tableData = searchKey ? filteredUsers ?? [] : wholeList ?? [];
+  const tableData =
+    searchKey && userFound && userFound.length > 0
+      ? userFound
+      : wholeList ?? [];
 
   const {
     handleSubmit,
