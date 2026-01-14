@@ -157,12 +157,17 @@ export const useDeleteUser = () => {
       await apiQLND.delete(
         `XoaNguoiDung?TaiKhoan=${encodeURIComponent(taiKhoan)}`
       ),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+    onSuccess: async () => {
+      // 1. Invalidate toàn bộ để các query liên quan tự động fetch lại
+      await queryClient.invalidateQueries({
         queryKey: ["usersList"],
-        refetchType: "active",
+        exact: true, // Đảm bảo làm mới đúng danh sách tổng
       });
-      queryClient.removeQueries(["usersSearch"]);
+
+      // 2. Với tìm kiếm, xóa cache để lần sau tìm lại sẽ lấy data mới
+      queryClient.removeQueries({ queryKey: ["usersSearch"] });
+
+      console.log("Dữ liệu đã được làm mới trên Server");
     },
   });
 };

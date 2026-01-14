@@ -20,7 +20,7 @@ const UsersTable = React.memo(function UsersTable({ data, onDeleteSuccess }) {
     maLoaiNguoiDung: user.maLoaiNguoiDung,
   }));
 
-  const { mutate: deleteUser, isLoading } = useDeleteUser();
+  const { mutate: deleteUser, isPending } = useDeleteUser();
 
   const handleDelete = (taiKhoan) => {
     console.log(taiKhoan);
@@ -124,6 +124,7 @@ const UsersTable = React.memo(function UsersTable({ data, onDeleteSuccess }) {
   ];
   return (
     <Table
+      loading={isPending}
       dataSource={dataSource}
       columns={columns}
       pagination={{

@@ -72,6 +72,7 @@ export default function UserManager() {
       )}
 
       <UsersTable
+        key={searchKey ? "searching" : "whole"}
         data={tableData ?? []}
         onDeleteSuccess={() => setSearchKey("")}
       />

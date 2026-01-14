@@ -30,7 +30,7 @@ const CourseTableList = React.memo(function CourseTableList({
       "N/A",
   }));
 
-  const { mutate: deleteCourse, isLoading } = useDeleteCourse();
+  const { mutate: deleteCourse, isPending } = useDeleteCourse();
 
   const handleDelete = (maKhoaHoc) => {
     const taiKhoanTrimmed = maKhoaHoc.trim();
@@ -142,6 +142,7 @@ const CourseTableList = React.memo(function CourseTableList({
   ];
   return (
     <Table
+      loading={isPending}
       dataSource={dataSource}
       columns={columns}
       pagination={{

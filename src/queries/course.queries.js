@@ -98,9 +98,15 @@ export const useDeleteCourse = () => {
   return useMutation({
     mutationFn: async (maKhoaHoc) =>
       await api.delete(`XoaKhoaHoc?maKhoaHoc=${maKhoaHoc}`),
-    onSuccess: () => {
-      queryClient.invalidateQueries(["courses"]);
-      queryClient.removeQueries(["coursesFind"]);
+
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: ["courses"],
+        exact: true,
+      });
+
+      queryClient.removeQueries({ queryKey: ["coursesFind"] });
+      console.log("Dữ liệu đã được làm mới trên Server");
     },
   });
 };

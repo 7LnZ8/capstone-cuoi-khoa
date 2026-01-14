@@ -159,6 +159,7 @@ const CourseManager = React.memo(function CourseManager() {
         )}
 
       <CourseTableList
+        key={searchKey ? "searching" : "whole"}
         data={tableData ?? []}
         showModal={showModal}
         imageVersion={imageVersion}
