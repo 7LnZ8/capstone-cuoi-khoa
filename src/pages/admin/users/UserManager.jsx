@@ -23,10 +23,7 @@ export default function UserManager() {
       )
     : userFound;
 
-  const tableData =
-    searchKey && Array.isArray(filteredUsers) && filteredUsers.length > 0
-      ? filteredUsers
-      : wholeList;
+  const tableData = searchKey ? filteredUsers ?? [] : wholeList ?? [];
 
   const {
     handleSubmit,
@@ -73,7 +70,11 @@ export default function UserManager() {
       {errors.taiKhoan && (
         <p className="search-not-found">{errors.taiKhoan.message}</p>
       )}
-      <UsersTable data={tableData ?? []} />
+
+      <UsersTable
+        data={tableData ?? []}
+        onDeleteSuccess={() => setSearchKey("")}
+      />
     </div>
   );
 }

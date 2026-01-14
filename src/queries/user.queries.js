@@ -54,7 +54,7 @@ export const useUpdateProfileMutation = () => {
     },
     onError: (err) => {
       message.error(err.response?.data || "Cập nhật thất bại!");
-    }
+    },
   });
 };
 
@@ -68,12 +68,14 @@ export const useCancelCourseMutation = () => {
       return res.data;
     },
     onSuccess: (data) => {
-      message.success(typeof data === 'string' ? data : "Hủy đăng ký thành công!");
+      message.success(
+        typeof data === "string" ? data : "Hủy đăng ký thành công!"
+      );
       queryClient.invalidateQueries(["userProfile"]); // Làm mới danh sách khóa học
     },
     onError: (err) => {
       message.error(err.response?.data || "Hủy đăng ký thất bại!");
-    }
+    },
   });
 };
 
@@ -91,27 +93,31 @@ export const useRegisterCourseMutation = () => {
     },
     onError: (err) => {
       message.error(err.response?.data || "Đăng ký thất bại!");
-    }
+    },
   });
 };
 
 // =======================================================
-// PHẦN 2: ADMIN HOOKS (Dành cho trang Admin)
+// PHẦN 2: ADMIN HOOKS (Code cũ của dự án - Đừng xóa)
 // =======================================================
 
-// Lấy danh sách người dùng
+// Lấy danh sách người dùng (Admin)
 export const useGetUsersList = () => {
   return useQuery({
     queryKey: ["usersList"],
     queryFn: async () => {
       const res = await apiQLND.get("LayDanhSachNguoiDung");
+      console.log("Lấy danh sách người dùng", res.data);
       return res.data;
     },
     staleTime: 5 * 60 * 1000,
+    select: (data) => [...data],
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
   });
 };
 
-// Tìm kiếm người dùng
+// Tìm kiếm người dùng (Admin)
 export const useGetUserInfo = (keyQuery) => {
   return useQuery({
     queryKey: ["usersSearch", keyQuery],
@@ -119,13 +125,17 @@ export const useGetUserInfo = (keyQuery) => {
       const res = await apiQLND.get(
         `TimKiemNguoiDung?tuKhoa=${encodeURIComponent(keyQuery)}`
       );
+      console.log("Tìm kiếm người dùng", res.data);
       return res.data;
     },
     enabled: !!keyQuery,
+    staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
   });
 };
 
-// Cập nhật người dùng (Admin)
+// Cập nhật thông tin người dùng (Admin)
 export const useUpdateUser = () => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -139,7 +149,7 @@ export const useUpdateUser = () => {
   });
 };
 
-// Xóa người dùng
+// Xóa người dùng (Admin)
 export const useDeleteUser = () => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -148,7 +158,11 @@ export const useDeleteUser = () => {
         `XoaNguoiDung?TaiKhoan=${encodeURIComponent(taiKhoan)}`
       ),
     onSuccess: () => {
-      queryClient.invalidateQueries(["usersList"]);
+      queryClient.invalidateQueries({
+        queryKey: ["usersList"],
+        refetchType: "active",
+      });
+      queryClient.removeQueries(["usersSearch"]);
     },
   });
 };

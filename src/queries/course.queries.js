@@ -100,37 +100,22 @@ export const useDeleteCourse = () => {
       await api.delete(`XoaKhoaHoc?maKhoaHoc=${maKhoaHoc}`),
     onSuccess: () => {
       queryClient.invalidateQueries(["courses"]);
+      queryClient.removeQueries(["coursesFind"]);
     },
   });
 };
 
 //Thêm tài khoản - Sẽ tách về user
 export const useAddUserDemo = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (payload) => {
       const res = await apiQLND.post("ThemNguoiDung", payload);
       console.log(res.data);
       return res.data;
     },
-  });
-};
-
-//Đăng ký - tách về user
-export const useRegister = () => {
-  return useMutation({
-    mutationFn: async (payload) => {
-      const res = await api.post("DangKy", payload);
-      return res.data;
-    },
-  });
-};
-
-//Đăng nhập - tách về user
-export const useLogin = () => {
-  return useMutation({
-    mutationFn: async (payload) => {
-      const res = await apiQLND.post("DangNhap", payload);
-      return res.data;
+    onSuccess: () => {
+      queryClient.invalidateQueries(["usersList"]);
     },
   });
 };

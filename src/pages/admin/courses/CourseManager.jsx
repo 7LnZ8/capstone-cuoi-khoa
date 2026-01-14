@@ -162,6 +162,7 @@ const CourseManager = React.memo(function CourseManager() {
         data={tableData ?? []}
         showModal={showModal}
         imageVersion={imageVersion}
+        onDeleteSuccess={() => setSearchKey("")}
       />
       <Modal
         title="Cập nhật ảnh"

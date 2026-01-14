@@ -7,9 +7,12 @@ export const useGetCategoriesCode = () => {
     queryKey: ["categoriesCode"],
     queryFn: async () => {
       const res = await api.get("LayDanhMucKhoaHoc");
+      console.log("Lấy danh muc khóa học:", res.data);
       return res.data;
     },
     staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
   });
 };
 
@@ -19,7 +22,9 @@ export const useGetCoursesByCategory = (maDanhMuc) => {
     queryKey: ["coursesByCategory", maDanhMuc],
     queryFn: async () => {
       // API lấy khóa học theo danh mục
-      const res = await api.get(`LayKhoaHocTheoDanhMuc?maDanhMuc=${maDanhMuc}&MaNhom=GP01`);
+      const res = await api.get(
+        `LayKhoaHocTheoDanhMuc?maDanhMuc=${maDanhMuc}&MaNhom=GP01`
+      );
       return res.data;
     },
     enabled: !!maDanhMuc,
@@ -45,7 +50,7 @@ export const useGetCourseDetail = (id) => {
       const res = await api.get(`LayThongTinKhoaHoc?maKhoaHoc=${id}`);
       return res.data;
     },
-    enabled: !!id,
+    enabled: !!id, // Chỉ fetch khi có id
   });
 };
 
@@ -54,9 +59,11 @@ export const useGetCourseList = () => {
   return useQuery({
     queryKey: ["courseList"],
     queryFn: async () => {
+      // Gọi API LayDanhSachKhoaHoc với mã nhóm mặc định GP01
       const res = await api.get("LayDanhSachKhoaHoc?MaNhom=GP01");
       return res.data;
     },
-    staleTime: 5 * 60 * 1000,
+    staleTime: 5 * 60 * 1000, // Cache 5 phút
+    keepPreviousData: true,
   });
 };

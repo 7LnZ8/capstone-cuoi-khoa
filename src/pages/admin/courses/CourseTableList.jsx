@@ -13,6 +13,7 @@ const CourseTableList = React.memo(function CourseTableList({
   data,
   showModal,
   imageVersion,
+  onDeleteSuccess,
 }) {
   const navigate = useNavigate();
 
@@ -32,10 +33,12 @@ const CourseTableList = React.memo(function CourseTableList({
   const { mutate: deleteCourse, isLoading } = useDeleteCourse();
 
   const handleDelete = (maKhoaHoc) => {
-    console.log(maKhoaHoc);
     const taiKhoanTrimmed = maKhoaHoc.trim();
     deleteCourse(taiKhoanTrimmed, {
-      onSuccess: () => message.success("Xóa khóa học thành công"),
+      onSuccess: () => {
+        message.success("Xóa khóa học thành công");
+        onDeleteSuccess?.();
+      },
       onError: (error) => {
         const backendMessage =
           error?.response?.data?.message ||

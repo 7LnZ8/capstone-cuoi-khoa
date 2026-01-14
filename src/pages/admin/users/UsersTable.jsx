@@ -8,7 +8,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useDeleteUser } from "../../../queries/user.queries.js";
 
-const UsersTable = React.memo(function UsersTable({ data }) {
+const UsersTable = React.memo(function UsersTable({ data, onDeleteSuccess }) {
   const navigate = useNavigate();
 
   const dataSource = (data || []).map((user, index) => ({
@@ -26,7 +26,10 @@ const UsersTable = React.memo(function UsersTable({ data }) {
     console.log(taiKhoan);
 
     deleteUser(taiKhoan, {
-      onSuccess: () => message.success("Xóa người dùng thành công"),
+      onSuccess: () => {
+        message.success("Xóa người dùng thành công");
+        onDeleteSuccess?.();
+      },
       onError: (error) => {
         const backendMessage =
           error?.response?.data?.message ||

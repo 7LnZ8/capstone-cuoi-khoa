@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useGetCourseDetail } from "../../queries/category.queries.js";
-import { useRegisterCourseMutation } from '../../queries/enroll.queries';
+import { useRegisterCourseMutation } from "../../queries/enroll.queries";
 import { Button, message, Spin } from "antd";
 import { useSelector } from "react-redux";
 
@@ -12,7 +12,8 @@ export default function CourseDetail() {
   // Hook lấy chi tiết
   const { data: course, isLoading } = useGetCourseDetail(id);
   // Hook đăng ký
-  const { mutate: registerCourse, isPending: isRegistering } = useRegisterCourseMutation();
+  const { mutate: registerCourse, isPending: isRegistering } =
+    useRegisterCourseMutation();
 
   const handleRegister = () => {
     if (!user) {
@@ -36,13 +37,17 @@ export default function CourseDetail() {
   return (
     <div className="container" style={{ padding: 20 }}>
       <h1>{course?.tenKhoaHoc}</h1>
-      <img src={course?.hinhAnh} alt={course?.tenKhoaHoc} style={{ width: "100%", maxWidth: 500 }} />
+      <img
+        src={course?.hinhAnh}
+        alt={course?.tenKhoaHoc}
+        style={{ width: "100%", maxWidth: 500 }}
+      />
       <p>{course?.moTa}</p>
-      
-      <Button 
-        type="primary" 
-        size="large" 
-        onClick={handleRegister} 
+
+      <Button
+        type="primary"
+        size="large"
+        onClick={handleRegister}
         loading={isRegistering}
       >
         Đăng ký tham gia

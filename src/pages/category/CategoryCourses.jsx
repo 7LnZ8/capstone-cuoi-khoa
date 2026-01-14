@@ -11,15 +11,29 @@ export default function CategoryCourses() {
   const { maDanhMuc } = useParams(); // Lấy mã từ URL (ví dụ: BackEnd)
   const { data: courses, isLoading } = useGetCoursesByCategory(maDanhMuc);
 
-  if (isLoading) return <div style={{ textAlign: 'center', padding: 50 }}><Spin size="large" /></div>;
+  if (isLoading)
+    return (
+      <div style={{ textAlign: "center", padding: 50 }}>
+        <Spin size="large" />
+      </div>
+    );
 
   return (
     <div style={{ padding: "40px 20px", maxWidth: 1200, margin: "0 auto" }}>
-      <div style={{ marginBottom: 30, borderBottom: '1px solid #f0f0f0', paddingBottom: 20 }}>
+      <div
+        style={{
+          marginBottom: 30,
+          borderBottom: "1px solid #f0f0f0",
+          paddingBottom: 20,
+        }}
+      >
         <Title level={2}>
-          Khóa học thuộc danh mục: <span style={{ color: "#1890ff" }}>{maDanhMuc}</span>
+          Khóa học thuộc danh mục:{" "}
+          <span style={{ color: "#1890ff" }}>{maDanhMuc}</span>
         </Title>
-        <Text type="secondary">Tìm thấy {courses?.length || 0} khóa học phù hợp</Text>
+        <Text type="secondary">
+          Tìm thấy {courses?.length || 0} khóa học phù hợp
+        </Text>
       </div>
 
       {!courses || courses.length === 0 ? (
@@ -36,40 +50,85 @@ export default function CategoryCourses() {
                       <img
                         alt={course.tenKhoaHoc}
                         src={course.hinhAnh}
-                        style={{ 
-                          width: "100%", 
-                          height: "100%", 
+                        style={{
+                          width: "100%",
+                          height: "100%",
                           objectFit: "cover",
-                          transition: "transform 0.3s"
+                          transition: "transform 0.3s",
                         }}
-                        onMouseOver={(e) => e.currentTarget.style.transform = "scale(1.1)"}
-                        onMouseOut={(e) => e.currentTarget.style.transform = "scale(1)"}
-                        onError={(e) => { e.target.onerror = null; e.target.src = "https://via.placeholder.com/300x200?text=No+Image"; }}
+                        onMouseOver={(e) =>
+                          (e.currentTarget.style.transform = "scale(1.1)")
+                        }
+                        onMouseOut={(e) =>
+                          (e.currentTarget.style.transform = "scale(1)")
+                        }
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src =
+                            "https://via.placeholder.com/300x200?text=No+Image";
+                        }}
                       />
                     </div>
                   }
-                  style={{ height: "100%", display: "flex", flexDirection: "column" }}
-                  bodyStyle={{ flex: 1, display: "flex", flexDirection: "column" }}
+                  style={{
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                  bodyStyle={{
+                    flex: 1,
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
                 >
                   <Meta
-                    title={<div style={{ whiteSpace: 'normal', height: 50, overflow: 'hidden' }}>{course.tenKhoaHoc}</div>}
+                    title={
+                      <div
+                        style={{
+                          whiteSpace: "normal",
+                          height: 50,
+                          overflow: "hidden",
+                        }}
+                      >
+                        {course.tenKhoaHoc}
+                      </div>
+                    }
                     description={
-                      <Paragraph ellipsis={{ rows: 2 }} style={{ height: 44, marginBottom: 10 }}>
+                      <Paragraph
+                        ellipsis={{ rows: 2 }}
+                        style={{ height: 44, marginBottom: 10 }}
+                      >
                         {course.moTa}
                       </Paragraph>
                     }
                   />
-                  
+
                   <div style={{ marginTop: "auto" }}>
-                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
-                        <Rate disabled defaultValue={4.5} style={{ fontSize: 12 }} />
-                        <Space size={4} style={{ fontSize: 12, color: '#888' }}>
-                           <EyeOutlined /> {course.luotXem}
-                        </Space>
-                     </div>
-                     <Button type="primary" block icon={<ArrowRightOutlined />} ghost>
-                        Xem chi tiết
-                     </Button>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        marginBottom: 12,
+                      }}
+                    >
+                      <Rate
+                        disabled
+                        defaultValue={4.5}
+                        style={{ fontSize: 12 }}
+                      />
+                      <Space size={4} style={{ fontSize: 12, color: "#888" }}>
+                        <EyeOutlined /> {course.luotXem}
+                      </Space>
+                    </div>
+                    <Button
+                      type="primary"
+                      block
+                      icon={<ArrowRightOutlined />}
+                      ghost
+                    >
+                      Xem chi tiết
+                    </Button>
                   </div>
                 </Card>
               </Link>
