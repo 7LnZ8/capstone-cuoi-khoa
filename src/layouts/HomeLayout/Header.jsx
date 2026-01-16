@@ -1,16 +1,12 @@
-import React from "react";
-import { Layout, Menu, Button, Space, Avatar, Dropdown, message } from "antd";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import {
-  UserOutlined,
-  LogoutOutlined,
-  AppstoreOutlined,
-  HomeOutlined,
-  ReadOutlined,
-} from "@ant-design/icons";
-import { useSelector, useDispatch } from "react-redux";
-import { logoutAction } from "../../feature/auth/authSlice";
-import "./HomeLayout.css"; // File CSS tùy chỉnh nếu cần
+import React from 'react';
+import { Layout, Menu, Button, Space, Avatar, Dropdown, message } from 'antd';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { 
+  UserOutlined, LogoutOutlined, AppstoreOutlined, 
+  HomeOutlined, ReadOutlined, SafetyCertificateOutlined 
+} from '@ant-design/icons';
+import { useSelector, useDispatch } from 'react-redux';
+import { logoutAction } from '../../feature/auth/authSlice';
 
 const { Header: AntHeader } = Layout;
 
@@ -19,111 +15,93 @@ const Header = () => {
   const location = useLocation();
   const dispatch = useDispatch();
 
-  // Lấy thông tin user từ Redux store (tự động cập nhật khi Login/Logout)
-  const user = useSelector((state) => state.auth?.user);
+  // Lấy user từ Redux
+  const user = useSelector((state) => state.auth.user);
 
   const handleLogout = () => {
-    dispatch(logoutAction()); // Xóa user trong Redux và LocalStorage
+    dispatch(logoutAction());
     message.success("Đăng xuất thành công!");
     navigate("/login");
   };
 
-  // Menu dropdown cho User đã đăng nhập
-  const userMenu = (
-    <Menu
-      items={[
-        {
-          key: "profile",
-          label: <Link to="/profile">Thông tin cá nhân</Link>,
-          icon: <UserOutlined />,
-        },
-        {
-          key: "logout",
-          label: <span onClick={handleLogout}>Đăng xuất</span>,
-          icon: <LogoutOutlined />,
-          danger: true,
-        },
-      ]}
-    />
-  );
-
-  // Các mục menu chính
-  const menuItems = [
+  // --- SỬA LỖI Ở ĐÂY: Khai báo items dưới dạng mảng (Array) ---
+  const dropdownItems = [
     {
-      key: "/",
-      label: <Link to="/">Trang chủ</Link>,
-      icon: <HomeOutlined />,
+      key: 'profile',
+      label: <Link to="/profile">Hồ sơ cá nhân</Link>,
+      icon: <UserOutlined />,
+    },
+    // Kiểm tra nếu là Giáo vụ (GV) thì thêm nút Admin
+    ...(user?.maLoaiNguoiDung === 'GV' ? [{
+      key: 'admin',
+      label: <Link to="/admin">Trang quản trị</Link>,
+      icon: <SafetyCertificateOutlined />,
+      danger: false, // Để màu bình thường
+    }] : []),
+    {
+      type: 'divider',
     },
     {
-      key: "/danh-muc-khoa-hoc",
-      label: <Link to="/danh-muc-khoa-hoc">Danh mục</Link>,
-      icon: <AppstoreOutlined />,
-    },
-    {
-      key: "/khoa-hoc",
-      label: <Link to="/khoa-hoc">Khóa học</Link>,
-      icon: <ReadOutlined />,
+      key: 'logout',
+      label: <span onClick={handleLogout}>Đăng xuất</span>,
+      icon: <LogoutOutlined />,
+      danger: true,
     },
   ];
 
+  // Menu chính (Trang chủ, Danh mục...)
+  const mainMenuItems = [
+    { key: '/', label: <Link to="/">Trang chủ</Link>, icon: <HomeOutlined /> },
+    { key: '/danh-muc-khoa-hoc', label: <Link to="/danh-muc-khoa-hoc">Danh mục</Link>, icon: <AppstoreOutlined /> },
+    { key: '/khoa-hoc', label: <Link to="/khoa-hoc">Khóa học</Link>, icon: <ReadOutlined /> },
+  ];
+
   return (
-    <AntHeader
-      style={{
-        position: "sticky",
-        top: 0,
-        zIndex: 1000,
-        width: "100%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        background: "#fff",
-        boxShadow: "0 2px 8px #f0f1f2",
+    <AntHeader 
+      style={{ 
+        position: 'sticky', top: 0, zIndex: 1000, width: '100%', 
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between', 
+        background: '#fff', boxShadow: '0 2px 8px #f0f1f2', padding: '0 24px'
       }}
     >
       {/* 1. LOGO */}
-      <div className="logo" style={{ marginRight: 20 }}>
-        <Link
-          to="/"
-          style={{ fontSize: 24, fontWeight: "bold", color: "#1890ff" }}
-        >
-          <span style={{ color: "#001529" }}>Cyber</span>Soft
+      <div className="logo" style={{ marginRight: 40 }}>
+        <Link to="/" style={{ fontSize: 24, fontWeight: 'bold', color: '#1890ff', textDecoration: 'none' }}>
+          <span style={{ color: '#001529' }}>Cyber</span>Soft
         </Link>
       </div>
 
-      {/* 2. MENU */}
+      {/* 2. MAIN MENU */}
       <Menu
         theme="light"
         mode="horizontal"
         selectedKeys={[location.pathname]}
-        items={menuItems}
-        style={{ flex: 1, borderBottom: "none" }}
+        items={mainMenuItems}
+        style={{ flex: 1, borderBottom: 'none', background: 'transparent' }}
       />
 
-      {/* 3. AUTH BUTTONS (Đăng nhập/User) */}
+      {/* 3. USER ACTIONS */}
       <div className="auth-actions">
         {user ? (
-          <Dropdown overlay={userMenu} placement="bottomRight" arrow>
-            <Space style={{ cursor: "pointer" }}>
-              <Avatar
-                icon={<UserOutlined />}
-                src={user.hinhAnh || null} // Nếu không có hình thì hiện icon
-                style={{ backgroundColor: "#87d068" }}
+          // --- SỬA LỖI: Dùng prop menu={{ items }} thay vì overlay ---
+          <Dropdown menu={{ items: dropdownItems }} placement="bottomRight" arrow trigger={['click']}>
+            <Space style={{ cursor: 'pointer', padding: '8px 0' }}>
+              <Avatar 
+                size="large"
+                src={user.hinhAnh} 
+                icon={<UserOutlined />} 
+                style={{ backgroundColor: '#1890ff' }} 
               />
-              <span className="hidden-mobile" style={{ fontWeight: 500 }}>
-                {user.hoTen || user.taiKhoan}
+              {/* Hiển thị Tên hoặc Tài khoản nếu chưa có tên */}
+              <span style={{ fontWeight: 500, color: '#001529', display: 'inline-block' }}>
+                {user.hoTen || user.taiKhoan || "Người dùng"}
               </span>
             </Space>
           </Dropdown>
         ) : (
           <Space>
-            <Button type="text" onClick={() => navigate("/login")}>
-              Đăng nhập
-            </Button>
-            <Button
-              type="primary"
-              shape="round"
-              onClick={() => navigate("/register")}
-            >
+            <Button type="text" onClick={() => navigate('/login')}>Đăng nhập</Button>
+            <Button type="primary" shape="round" onClick={() => navigate('/register')}>
               Đăng ký
             </Button>
           </Space>
