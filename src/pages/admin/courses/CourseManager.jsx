@@ -97,11 +97,6 @@ const CourseManager = React.memo(function CourseManager() {
       )
     : courseFound;
 
-  // const tableData =
-  //   searchKey && Array.isArray(filteredCourse) && filteredCourse.length > 0
-  //     ? filteredCourse
-  //     : listData;
-
   const tableData =
     searchKey && courseFound && courseFound.length > 0
       ? courseFound

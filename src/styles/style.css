@@ -507,13 +507,13 @@ footer div div div div span {
   color: #bde8f5;
 }
 
-.elearning-tabs {
+.elearning-tabs-enroll {
   padding: 24px;
   font-family: "Roboto", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   display: flex;
   justify-content: center;
 }
-.elearning-tabs .ant-tabs {
+.elearning-tabs-enroll .ant-tabs {
   width: 75%;
   max-width: 85%;
   margin: 0 auto;
@@ -522,7 +522,7 @@ footer div div div div span {
   box-shadow: 2px 4px 10px rgba(255, 255, 255, 0.266);
   padding: 32px 32px 4px 32px;
 }
-.elearning-tabs .ant-tabs .ant-tabs-nav::before {
+.elearning-tabs-enroll .ant-tabs .ant-tabs-nav::before {
   content: "";
   position: absolute;
   bottom: 0;
@@ -532,7 +532,7 @@ footer div div div div span {
   opacity: 0.5;
   z-index: 1;
 }
-.elearning-tabs .ant-tabs .ant-tabs-tab {
+.elearning-tabs-enroll .ant-tabs .ant-tabs-tab {
   min-width: 160px;
   margin: 0 !important;
   padding: 12px 20px;
@@ -542,37 +542,37 @@ footer div div div div span {
   border: none !important;
   transition: all 0.3s ease;
 }
-.elearning-tabs .ant-tabs .ant-tabs-tab .ant-tabs-tab-btn {
+.elearning-tabs-enroll .ant-tabs .ant-tabs-tab .ant-tabs-tab-btn {
   font-size: 14px;
   font-weight: 600;
   color: #0f172a;
   z-index: 2;
 }
-.elearning-tabs .ant-tabs .ant-tabs-tab:hover .ant-tabs-tab-btn {
+.elearning-tabs-enroll .ant-tabs .ant-tabs-tab:hover .ant-tabs-tab-btn {
   color: #1c4d8d;
 }
-.elearning-tabs .ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+.elearning-tabs-enroll .ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
   font-size: 16px;
   position: relative;
   background: radial-gradient(circle, rgba(73, 136, 196, 0.2) 0%, rgba(189, 232, 245, 0.2) 75%, transparent 85%);
   padding: 8px;
   color: #1c4d8d;
 }
-.elearning-tabs .ant-tabs .ant-tabs-ink-bar {
+.elearning-tabs-enroll .ant-tabs .ant-tabs-ink-bar {
   height: 4px;
   background: #0f2854 !important;
   z-index: 3;
   border-radius: 0;
 }
 @media (max-width: 768px) {
-  .elearning-tabs {
+  .elearning-tabs-enroll {
     padding: 12px;
   }
-  .elearning-tabs .ant-tabs {
+  .elearning-tabs-enroll .ant-tabs {
     width: 100%;
     padding: 16px;
   }
-  .elearning-tabs .ant-tabs .ant-tabs-tab {
+  .elearning-tabs-enroll .ant-tabs .ant-tabs-tab {
     min-width: 100px;
   }
 }

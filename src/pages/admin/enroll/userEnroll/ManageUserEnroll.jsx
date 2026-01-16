@@ -36,7 +36,7 @@ export default function ManageUserEnroll() {
   };
 
   return (
-    <div className="elearning-tabs">
+    <div className="elearning-tabs-enroll">
       <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
     </div>
   );
