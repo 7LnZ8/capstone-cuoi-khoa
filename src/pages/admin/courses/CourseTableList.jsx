@@ -127,7 +127,7 @@ const CourseTableList = React.memo(function CourseTableList({
               icon={<AuditOutlined />}
               onClick={() =>
                 navigate(
-                  `/admin/enroll/course/${encodeURIComponent(record.maKhoaHoc)}`
+                  `/admin/enroll/course/${encodeURIComponent(record.maKhoaHoc)}`,
                 )
               }
             />

@@ -2,7 +2,7 @@ import {
   useDeleteCourseById,
   useGetCourseWasRegisterByUser,
 } from "../../../../../queries/enroll.queries.js";
-import CommonList from "../CommonList.jsx";
+import CommonList from "./CommonList.jsx";
 
 const DoneEnrollCourse = ({ id, action }) => {
   const { data } = useGetCourseWasRegisterByUser(id);

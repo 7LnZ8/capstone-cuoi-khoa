@@ -3,12 +3,6 @@ import { Tabs } from "antd";
 import SearchUser from "./listPreview/SearchUser.jsx";
 
 export default function EnrollManager() {
-  // const matchEnrollUsers = useMatch("/admin/enroll/user/:id");
-  // const userId = matchEnrollUsers?.params.id;
-
-  // const remove = "remove";
-  // const register = "register";
-
   const items = [
     {
       key: "1",

@@ -42,7 +42,7 @@ export default function CommonList({ data, action, funtionHanle, id }) {
                 >
                   Xóa khỏi khóa học
                 </button>
-              ) : action == "confirm" ? (
+              ) : action == "register" ? (
                 <button
                   className="btn-enroll-list"
                   onClick={() => {

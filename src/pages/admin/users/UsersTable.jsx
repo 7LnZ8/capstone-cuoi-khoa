@@ -94,7 +94,7 @@ const UsersTable = React.memo(function UsersTable({ data, onDeleteSuccess }) {
               icon={<EditOutlined />}
               onClick={() => {
                 navigate(
-                  `/admin/users/${encodeURIComponent(record.taiKhoan)}/edit`
+                  `/admin/users/${encodeURIComponent(record.taiKhoan)}/edit`,
                 );
               }}
             />
@@ -105,7 +105,7 @@ const UsersTable = React.memo(function UsersTable({ data, onDeleteSuccess }) {
               icon={<UsergroupAddOutlined />}
               onClick={() =>
                 navigate(
-                  `/admin/enroll/user/${encodeURIComponent(record.taiKhoan)}`
+                  `/admin/enroll/user/${encodeURIComponent(record.taiKhoan)}`,
                 )
               }
             />

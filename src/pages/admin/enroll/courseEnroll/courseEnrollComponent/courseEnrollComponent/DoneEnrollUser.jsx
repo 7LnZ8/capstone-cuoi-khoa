@@ -1,11 +1,11 @@
 import CommonList from "./CommonList.jsx";
 import {
   useDeleteCourseById,
-  useGetCourseWasRegisterByUser,
+  useGetUserWasRegisterByCourse,
 } from "../../../../../../queries/enroll.queries.js";
 
 const DoneEnrollUser = ({ id, action }) => {
-  const { data } = useGetCourseWasRegisterByUser(id);
+  const { data } = useGetUserWasRegisterByCourse(id);
   const addCourse = useDeleteCourseById();
 
   const removeCourseById = async (payload) => {

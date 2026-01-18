@@ -7,8 +7,8 @@ import DoneEnrollUser from "./courseEnrollComponent/courseEnrollComponent/DoneEn
 import PendingEnrollUser from "./courseEnrollComponent/courseEnrollComponent/PendingEnrollUser.jsx";
 
 export default function ManageUserEnroll() {
-  const matchEnrollUsers = useMatch("/admin/enroll/user/:id");
-  const userId = matchEnrollUsers?.params.id;
+  const matchEnrollUsers = useMatch("/admin/enroll/course/:id");
+  const courseId = matchEnrollUsers?.params.id;
 
   const remove = "remove";
   const register = "register";
@@ -18,17 +18,17 @@ export default function ManageUserEnroll() {
     {
       key: "1",
       label: "KHÓA HỌC CHƯA ĐĂNG KÝ",
-      children: <NotRegisterUser id={userId} action={register} />,
+      children: <NotRegisterUser id={courseId} action={register} />,
     },
     {
       key: "2",
       label: "KHÓA HỌC ĐÃ ĐĂNG KÝ",
-      children: <DoneEnrollUser id={userId} action={remove} />,
+      children: <DoneEnrollUser id={courseId} action={remove} />,
     },
     {
       key: "3",
       label: "KHÓA HỌC CHỜ XÉT DUYỆT",
-      children: <PendingEnrollUser id={userId} action={confirm} />,
+      children: <PendingEnrollUser id={courseId} action={confirm} />,
     },
   ];
 

@@ -41,7 +41,7 @@ export default function CommonList({ data, action, funtionHanle, id }) {
                 >
                   Xóa khỏi khóa học
                 </button>
-              ) : action == "confirm" ? (
+              ) : action == "register" ? (
                 <button
                   className="btn-enroll-list"
                   onClick={() => {
@@ -51,7 +51,7 @@ export default function CommonList({ data, action, funtionHanle, id }) {
                     });
                   }}
                 >
-                  Xác nhận ghi danh
+                  Ghi danh
                 </button>
               ) : (
                 <button
@@ -63,7 +63,7 @@ export default function CommonList({ data, action, funtionHanle, id }) {
                     });
                   }}
                 >
-                  Đăng ký khóa học
+                  Xác nhận khóa học
                 </button>
               )}
             </List.Item>

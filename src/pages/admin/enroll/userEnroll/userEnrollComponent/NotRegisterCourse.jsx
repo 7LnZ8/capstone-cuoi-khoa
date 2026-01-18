@@ -2,7 +2,7 @@ import {
   useAddCourseById,
   useGetCourseNotRegisterByUser,
 } from "../../../../../queries/enroll.queries.js";
-import CommonList from "../CommonList.jsx";
+import CommonList from "./CommonList.jsx";
 
 const NotRegisterCourse = ({ id, action }) => {
   const { data: listNotRegisterByUser } = useGetCourseNotRegisterByUser(id);
