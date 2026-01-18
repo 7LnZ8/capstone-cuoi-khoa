@@ -45,22 +45,13 @@
         }
       }
     }
-    .form-look {
-      font-weight: $fwM;
-      .input-look {
-        border-radius: $rad-m 0 0 $rad-m;
-      }
-      .btn-look {
-        border-radius: 0 $rad-m $rad-m 0;
-        @include btn-look;
-        @include btn-tone($blue-light, $blue-dark);
-        // &:hover {
-        //   color: $blue-light !important;
-        //   background-color: $blue-dark !important;
-        //   text-shadow: $tsh;
-        // }
-      }
+
+    .btn-look {
+      border-radius: $rad-m;
+      @include btn-look;
+      @include btn-tone($blue-light, $blue-dark);
     }
+
     .nav-right {
       .btn-auth {
         font-weight: $fwM;

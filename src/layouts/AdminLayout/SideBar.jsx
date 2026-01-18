@@ -102,7 +102,7 @@ export default function SideBar() {
               `link-route ${isActive ? "active-sidebar" : ""}`
             }
           >
-            <FaRegAddressCard /> Quản Lý Ghi Danh
+            <FaRegAddressCard /> Kiểm Tra Ghi Danh
           </NavLink>
           {matchEnrollCourses && (
             <NavLink

@@ -1,13 +1,14 @@
 import React from "react";
 import { Tabs } from "antd";
 import { useMatch } from "react-router-dom";
-import NotRegisterCourse from "./userEnrollComponent/NotRegisterCourse.jsx";
-import DoneEnrollCourse from "./userEnrollComponent/DoneEnrollCourse.jsx";
-import PendingEnrollCourse from "./userEnrollComponent/PendingEnrollCourse.jsx";
+
+import NotRegisterUser from "./courseEnrollComponent/courseEnrollComponent/NotRegisterUser.jsx";
+import DoneEnrollUser from "./courseEnrollComponent/courseEnrollComponent/DoneEnrollUser.jsx";
+import PendingEnrollUser from "./courseEnrollComponent/courseEnrollComponent/PendingEnrollUser.jsx";
 
 export default function ManageUserEnroll() {
-  const matchEnrollCourse = useMatch("/admin/enroll/course/:id");
-  const courseId = matchEnrollCourse?.params.id;
+  const matchEnrollUsers = useMatch("/admin/enroll/user/:id");
+  const userId = matchEnrollUsers?.params.id;
 
   const remove = "remove";
   const register = "register";
@@ -17,17 +18,17 @@ export default function ManageUserEnroll() {
     {
       key: "1",
       label: "KHÓA HỌC CHƯA ĐĂNG KÝ",
-      children: <NotRegisterCourse id={courseId} action={register} />,
+      children: <NotRegisterUser id={userId} action={register} />,
     },
     {
       key: "2",
       label: "KHÓA HỌC ĐÃ ĐĂNG KÝ",
-      children: <DoneEnrollCourse id={courseId} action={remove} />,
+      children: <DoneEnrollUser id={userId} action={remove} />,
     },
     {
       key: "3",
       label: "KHÓA HỌC CHỜ XÉT DUYỆT",
-      children: <PendingEnrollCourse id={courseId} action={confirm} />,
+      children: <PendingEnrollUser id={userId} action={confirm} />,
     },
   ];
 

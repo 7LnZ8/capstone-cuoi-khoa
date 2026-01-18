@@ -2,9 +2,9 @@ import CommonList from "./CommonList.jsx";
 import {
   useDeleteCourseById,
   useGetCourseWasRegisterByUser,
-} from "../../../../queries/enroll.queries.js";
+} from "../../../../../../queries/enroll.queries.js";
 
-const DoneEnrollCourse = ({ id, action }) => {
+const DoneEnrollUser = ({ id, action }) => {
   const { data } = useGetCourseWasRegisterByUser(id);
   const addCourse = useDeleteCourseById();
 
@@ -27,4 +27,4 @@ const DoneEnrollCourse = ({ id, action }) => {
   );
 };
 
-export default DoneEnrollCourse;
+export default DoneEnrollUser;

@@ -34,15 +34,9 @@ export default function Navbar() {
               QUAN LÝ GHI DANH
             </Link>
 
-            <Form className="d-flex form-look">
-              <Input
-                className="form-control input-look"
-                placeholder="Tìm khóa học..."
-              />
-              <button className="btn btn-look">
-                <FaSearch />
-              </button>
-            </Form>
+            <Link to="/" className="link-route">
+              TRANG NGƯỜI DÙNG
+            </Link>
           </div>
 
           <div className="ms-auto d-flex nav-right">

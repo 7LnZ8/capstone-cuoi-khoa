@@ -17,8 +17,8 @@ import CreateCourse from "../pages/admin/courses/CreateCourse.jsx";
 import UpdateCourse from "../pages/admin/courses/UpdateCourse.jsx";
 import EnrollManager from "../pages/admin/enroll/EnrollManager.jsx";
 import ManageUserEnroll from "../pages/admin/enroll/userEnroll/ManageUserEnroll.jsx";
-import EnrollCourse from "../pages/admin/enroll/courseEnroll/EnrollCourse.jsx";
 import AdminRoute from "./AdminRoute.jsx";
+import ManageCourseEnroll from "../pages/admin/enroll/courseEnroll/ManageCourseEnroll.jsx";
 
 export default function AppRouter() {
   const routes = useRoutes([
@@ -79,7 +79,7 @@ export default function AppRouter() {
               children: [
                 { index: true, element: <EnrollManager /> },
                 { path: "user/:id", element: <ManageUserEnroll /> },
-                { path: "course/:id", element: <EnrollCourse /> },
+                { path: "course/:id", element: <ManageCourseEnroll /> },
               ],
             },
           ],

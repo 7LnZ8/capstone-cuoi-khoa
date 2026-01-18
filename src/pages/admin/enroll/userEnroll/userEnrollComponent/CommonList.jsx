@@ -42,6 +42,18 @@ export default function CommonList({ data, action, funtionHanle, id }) {
                 >
                   Xóa khỏi khóa học
                 </button>
+              ) : action == "confirm" ? (
+                <button
+                  className="btn-enroll-list"
+                  onClick={() => {
+                    funtionHanle({
+                      maKhoaHoc: item.content.maKhoaHoc,
+                      taiKhoan: id,
+                    });
+                  }}
+                >
+                  Xác nhận khóa học
+                </button>
               ) : (
                 <button
                   className="btn-enroll-list"

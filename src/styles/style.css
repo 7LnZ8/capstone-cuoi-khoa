@@ -34,7 +34,7 @@
 }
 @keyframes animate {
   to {
-    background-position-x: -500px;
+    background-position-x: -1000px;
   }
 }
 .navbar .nav-wrap .nav-left div {
@@ -53,14 +53,8 @@
   color: #4988c4;
   font-weight: 700;
 }
-.navbar .nav-wrap .form-look {
-  font-weight: 600;
-}
-.navbar .nav-wrap .form-look .input-look {
-  border-radius: 8px 0 0 8px;
-}
-.navbar .nav-wrap .form-look .btn-look {
-  border-radius: 0 8px 8px 0;
+.navbar .nav-wrap .btn-look {
+  border-radius: 8px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -76,11 +70,11 @@
   color: #1c4d8d;
   box-shadow: 0 1px 2px rgba(255, 255, 255, 0.333);
 }
-.navbar .nav-wrap .form-look .btn-look:disabled {
+.navbar .nav-wrap .btn-look:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
-.navbar .nav-wrap .form-look .btn-look:hover {
+.navbar .nav-wrap .btn-look:hover {
   background-color: #1c4d8d !important;
   color: #bde8f5;
 }
@@ -163,7 +157,7 @@ footer div div div div .nav-logo h2 {
 }
 @keyframes animate {
   to {
-    background-position-x: -500px;
+    background-position-x: -1000px;
   }
 }
 footer div div div div span {

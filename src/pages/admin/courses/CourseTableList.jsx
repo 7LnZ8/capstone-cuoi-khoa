@@ -125,7 +125,11 @@ const CourseTableList = React.memo(function CourseTableList({
             <Button
               type="link"
               icon={<AuditOutlined />}
-              onClick={() => console.log(record.tenKhoaHoc)}
+              onClick={() =>
+                navigate(
+                  `/admin/enroll/course/${encodeURIComponent(record.maKhoaHoc)}`
+                )
+              }
             />
           </Tooltip>
           <Tooltip title="Xóa khóa học">
