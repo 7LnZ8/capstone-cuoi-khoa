@@ -11,29 +11,34 @@ export default function SearchFormCommon({
   setSearchKey,
   handleSubmit,
   control,
-  findUser,
+  findSomething,
   errors,
   isPending,
 }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (findUser && searchKey) {
-      navigate(`/admin/enroll/user/${encodeURIComponent(searchKey)}`);
+    if (findSomething && searchKey) {
+      if (keyData === "taiKhoan") {
+        navigate(`/admin/enroll/user/${encodeURIComponent(searchKey)}`);
+      } else {
+        const maKhoaHoc = findSomething.maKhoaHoc;
+        navigate(`/admin/enroll/course/${encodeURIComponent(maKhoaHoc)}`);
+      }
     }
-  }, [findUser, searchKey, navigate]);
+  }, [findSomething, searchKey, keyData, navigate]);
 
   return (
     <>
       <form
         className="form-search"
         onSubmit={handleSubmit((values) => {
-          setSearchKey(values.taiKhoan);
+          setSearchKey(values[keyData]);
         })}
       >
         <div>
           <Controller
-            name="taiKhoan"
+            name={keyData}
             control={control}
             render={({ field }) => (
               <Input {...field} placeholder="Tìm kiếm tài khoản" />
@@ -48,7 +53,7 @@ export default function SearchFormCommon({
       )}
       {searchKey &&
         !isPending &&
-        !findUser &&
+        !findSomething &&
         (errors[keyData] ? (
           ""
         ) : keyData == "taiKhoan" ? (

@@ -1,13 +1,14 @@
 // import React from "react";
 import { Tabs } from "antd";
 import SearchUser from "./listPreview/SearchUser.jsx";
+import SearchCourse from "./listPreview/SearchCourse.jsx";
 
 export default function EnrollManager() {
   const items = [
     {
       key: "1",
       label: "KIỂM TRA THEO MÃ KHÓA HỌC",
-      children: <h1>KHÓA HỌC</h1>,
+      children: <SearchCourse />,
     },
     {
       key: "2",

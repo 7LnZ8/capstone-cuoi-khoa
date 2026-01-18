@@ -40,7 +40,7 @@ const Footer = () => {
                   textDecoration: "none",
                 }}
               >
-                <span style={{ color: "#1890ff" }}>Cyber</span>Soft
+                <span style={{ color: "#1890ff" }}>Cyber</span>My
               </Link>
             </div>
             <Text

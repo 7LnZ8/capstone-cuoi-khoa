@@ -3,27 +3,29 @@ import { List } from "antd";
 // import { useNavigate } from "react-router-dom";
 
 import SearchFormCommon from "./SearchFormCommon.jsx";
-import { useGetUserInfo } from "../../../../queries/user.queries.js";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { searchUserSchema } from "../../../../schemas/auth.schema.js";
+import { useFindCourseByName } from "../../../../queries/course.queries.js";
+import { searchCourseSchema } from "../../../../schemas/course.schema.js";
 
-export default function SearchUser() {
-  const key = "taiKhoan";
+export default function SearchCourse() {
+  const key = "tenKhoaHoc";
   const [searchKey, setSearchKey] = useState("");
 
-  const { data: userFound, isPending } = useGetUserInfo(searchKey);
+  const { data: courseFound, isPending } = useFindCourseByName(searchKey);
+  console.log(courseFound);
 
-  const findUser =
-    searchKey && userFound?.find((user) => user.taiKhoan == searchKey);
+  const findCourse =
+    searchKey && courseFound?.find((user) => user.tenKhoaHoc == searchKey);
+  console.log(findCourse);
 
   const {
     handleSubmit,
     control,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(searchUserSchema),
-    defaultValues: { taiKhoan: "" },
+    resolver: zodResolver(searchCourseSchema),
+    defaultValues: { tenKhoaHoc: "" },
   });
 
   return (
@@ -35,7 +37,7 @@ export default function SearchUser() {
         setSearchKey={setSearchKey}
         handleSubmit={handleSubmit}
         control={control}
-        findSomething={findUser}
+        findSomething={findCourse}
         errors={errors}
         isPending={isPending}
       />

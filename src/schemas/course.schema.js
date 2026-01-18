@@ -27,7 +27,7 @@ export const themKhoaHocSchema = z.object({
     .nonempty("Ngày tạo không được để trống")
     .regex(
       /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/,
-      "Ngày tạo phải đúng định dạng DD/MM/YYYY"
+      "Ngày tạo phải đúng định dạng DD/MM/YYYY",
     ),
   maDanhMucKhoaHoc: z.string().nonempty("Danh mục không được để trống"),
   taiKhoanNguoiTao: z.string(),
