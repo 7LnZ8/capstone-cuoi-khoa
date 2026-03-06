@@ -21,6 +21,7 @@ const Footer = () => {
         backgroundColor: "#001529",
         color: "#fff",
         padding: "60px 24px 24px",
+        height: "auto",
       }}
     >
       <div

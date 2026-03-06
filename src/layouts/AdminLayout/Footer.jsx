@@ -2,7 +2,7 @@ import Logo from "./Logo.jsx";
 
 export default function Footer() {
   return (
-    <footer>
+    <footer className="admin-footer">
       <div>
         <div className="container py-3">
           <div className="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
@@ -17,8 +17,8 @@ export default function Footer() {
               </button>
 
               <button className="btn btn-outline-light btn-sm d-flex align-items-center gap-2">
-                <span className="material-icons-outlined">language</span>
-                <span>English</span>
+                <span className="material-icons-outlined">Tiếng</span>
+                <span>Việt</span>
               </button>
             </div>
           </div>

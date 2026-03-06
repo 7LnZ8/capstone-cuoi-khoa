@@ -11,7 +11,12 @@ const HomeLayout = () => {
   return (
     // minHeight: 100vh giúp trang luôn cao bằng màn hình
     <Layout
-      style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        backgroundColor: "#001529",
+      }}
     >
       <Header />
 

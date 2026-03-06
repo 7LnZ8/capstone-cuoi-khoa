@@ -5,7 +5,6 @@ import Footer from "./Footer.jsx";
 import SideBar from "./SideBar.jsx";
 
 export default function AdminLayout() {
-  console.log("chạy layout");
   return (
     <div className="admin-layout">
       <Navbar />
