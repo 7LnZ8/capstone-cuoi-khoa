@@ -119,7 +119,7 @@ const Footer = () => {
                   style={{ color: "#1890ff", fontSize: 20, marginRight: 10 }}
                 />
                 <Text style={{ color: "rgba(255,255,255,0.65)" }}>
-                  support@cybersoft.edu.vn
+                  support@cybermy.edu.vn
                 </Text>
               </div>
             </Space>
@@ -135,7 +135,7 @@ const Footer = () => {
 
         <div style={{ textAlign: "center" }}>
           <Text style={{ color: "rgba(255,255,255,0.45)", fontSize: 14 }}>
-            © 2024 CyberSoft Academy. All rights reserved.
+            © 2024 CyberMy. All rights reserved.
           </Text>
         </div>
       </div>
